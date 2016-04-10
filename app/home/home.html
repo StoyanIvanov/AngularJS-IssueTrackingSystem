@@ -1,0 +1,40 @@
+<div class="margin-bottom-100"></div>
+<div class="row">
+    <div class="col-md-4 col-md-offset-1 border">
+        <form name="loginUserForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required="required" ng-model="loginUser.username" class="form-control"/>
+            <br />
+            <label for="password">Password:</label>
+            <input type="password" id="password" required="required" minlength="6" maxlength="100" ng-model="loginUser.password" class="form-control"/>
+            <br />
+            <button class="btn btn-primary" ng-disabled="loginUserForm.$invalid" ng-click="login(loginUser)">Login</button>
+        </form>
+
+    </div>
+    <div class="col-md-4 col-md-offset-2 border">
+        <form name="registerUserForm">
+            <label for="reg-username">Username:</label>
+            <input type="text" id="reg-username" required="required" ng-model="registerUser.username" class="form-control"/>
+            <br />
+            <label for="reg-password">Password:</label>
+            <input type="password" id="reg-password" required="required" minlength="6" maxlength="100" ng-model="registerUser.password" class="form-control"/>
+            <br />
+            <label for="reg-conf-password">Confirm password:</label>
+            <input type="password" id="reg-conf-password" required="required" minlength="6" maxlength="100" ng-model="registerUser.confirmPassword" class="form-control"/>
+            <br />
+            <label for="name">Name:</label>
+            <input type="text" id="name" required="required" ng-model="registerUser.name" class="form-control"/>
+            <br />
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" required="required" ng-model="registerUser.email" class="form-control"/>
+            <br />
+            <label name="reg-gender">Gender:</label>
+            <input type="radio" name="reg-gender" checked="checked" ng-model="registerUser.gender" value="1"/>Male
+            <input type="radio" name="reg-gender" ng-model="registerUser.gender" value="2"/>Female
+            <input type="radio" name="reg-gender" ng-model="registerUser.gender" value="3"/>Other
+            <br />
+            <button class="btn btn-primary" ng-disabled="registerUserForm.$invalid || registerUser.password != registerUser.confirmPassword" ng-click="register(registerUser)">Register</button>
+        </form>
+    </div>
+</div>

@@ -1,9 +1,9 @@
-<html lang="en" class="gr__bootswatch_com">
+<html lang="en" ng-app="issueTracker">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>My AngularJS App</title>
-    <meta name="description" content="">
+    <title>Issue Tracker System</title>
+    <meta name="description" content="Issue Tracker System">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/main.css">
@@ -33,19 +33,17 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-6">TEXT</div>
-        <div class="col-md-6">TEXT</div>
+        <div ng-view>
+
+        </div>
     </div>
 </div>
 
-<div ng-view></div>
 <script src="app/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="app/bower_components/angular/angular.js"></script>
+<script src="app/home/homeController.js"></script>
+<script src="app/users/authentication.js"></script>
 <script src="app/bower_components/angular-route/angular-route.js"></script>
 <script src="app/app.js"></script>
-<script src="app/view1/view1.js"></script>
-<script src="app/components/version/version.js"></script>
-<script src="app/components/version/version-directive.js"></script>
-<script src="app/components/version/interpolate-filter.js"></script>
 </body>
