@@ -37,6 +37,5 @@ angular.module('issueTracker.authentication',[])
             registerUser:registerUser,
             loginUser:loginUser,
             logoutUser:logoutUser
-
         }
     }]);
