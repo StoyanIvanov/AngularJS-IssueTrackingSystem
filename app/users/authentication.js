@@ -6,7 +6,7 @@ angular.module('issueTracker.authentication',[])
         function registerUser(user){
             var deferred=$q.defer();
 
-            $http.post(BASE_URL+'api/users/Register',user)
+            $http.post(BASE_URL+'api/Account/Register',user)
                 .then(function(success){
                     deferred.resolve(success.data);
                 },function(error){
@@ -18,8 +18,32 @@ angular.module('issueTracker.authentication',[])
 
         function loginUser(user){
             var deferred=$q.defer();
+            var data='username=' + encodeURIComponent(user.username) +
+                '&password=' + encodeURIComponent(user.password) +
+                '&grant_type=password';
 
-            $http.post(BASE_URL+'api/users/Login',user)
+            $http({
+                method: 'POST',
+                url: BASE_URL+'api/Token',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: data
+            }).then(function(response) {
+                deferred.resolve(response.data);
+            },function(error){
+                deferred.reject(error);
+            });
+
+            return deferred.promise;
+        }
+
+        function getUser(token){
+            var deferred=$q.defer();
+            var authorization='Bearer ' + token;
+
+            $http.defaults.headers.common.Authorization=authorization;
+            $http.get(BASE_URL+'users/me',$http.header)
                 .then(function(user){
                     deferred.resolve(user.data);
                 },function(error){
@@ -36,6 +60,7 @@ angular.module('issueTracker.authentication',[])
         return {
             registerUser:registerUser,
             loginUser:loginUser,
-            logoutUser:logoutUser
+            logoutUser:logoutUser,
+            getUser:getUser
         }
     }]);

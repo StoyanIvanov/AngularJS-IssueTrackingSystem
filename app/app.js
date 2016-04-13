@@ -4,10 +4,16 @@
 angular.module('issueTracker', [
     'ngRoute',
     'ngCookies',
-    'issueTracker.home'
+    'issueTracker.mainController',
+    'issueTracker.homeController',
+    'issueTracker.loginController',
+    'issueTracker.registerController',
+    'issueTracker.dashboard',
+    'issueTracker.users.role',
+    'issueTracker.general.menuButtons'
 
   ]).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/'});
   }])
-    .constant('BASE_URL','http://softuni-social-network.azurewebsites.net/');
+    .constant('BASE_URL','http://softuni-issue-tracker.azurewebsites.net/');

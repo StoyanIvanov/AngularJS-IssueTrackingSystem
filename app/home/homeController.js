@@ -1,9 +1,7 @@
 'use strict';
 
-
-angular.module('issueTracker.home',[
-    'issueTracker.authentication',
-    'ngCookies'
+angular.module('issueTracker.homeController',[
+    'issueTracker.authentication'
 ])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/',{
@@ -12,21 +10,11 @@ angular.module('issueTracker.home',[
         })
 
     }])
-.controller('HomeController',['$scope','','authentication','role',function($scope,authentication,role){
+.controller('HomeController',['$scope','$location','authentication','role',function($scope,$location,authentication,role){
 
-    $scope.login=function(user){
-        authentication.loginUser(user)
-            .then(function(user){
-                $location.path('/dashboard');
-                role.rememberUser(user.access_token,user.userName);
-            });
-    };
-
-    $scope.register=function(user){
-        authentication.registerUser(user)
-            .then(function (user) {
-                role.rememberUser(user.access_token,user.userName);
-            })
+    if(!role.isAuthenticated){
+        console.log(role.isAuthenticated);
+        $location.path('/login');
     }
 
 }]);

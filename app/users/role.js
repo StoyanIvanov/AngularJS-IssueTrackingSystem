@@ -1,41 +1,41 @@
 'use strict';
 
-angular.module('issueTracker.users.role')
-    .factory('role',['$http','$q','$cookies',function($http,$q,$cookies){
+angular.module('issueTracker.users.role',[])
+    .factory('role',['$http','$q','$cookies','authentication',function($http,$q,$cookies,authentication){
 
         var accessToken='';
         var userName='';
-        var isAuthenticated=false;
+        var UserAuthenticated=false;
+        var user=undefined;
 
-        function rememberUser(token, username){
-            if(accessToken){
+        function rememberUser(token, username) {
+            accessToken = token;
+            userName = username;
+            $cookies.put('usr_it', accessToken);
+            $cookies.put('userName', userName);
+            UserAuthenticated = true;
 
-            } else {
-
-                accessToken=token;
-                userName=username;
-                $cookies.put('usr_it',user.access_token);
-                $cookies.put('userName',user.userName);
-
-                isAuthenticated=true;
-            }
-
-        }
-
-        function getUser(){
-            return{
-                userName:userName
-            }
+            authentication.getUser(accessToken)
+                .then(function (userData) {
+                    user = userData;
+                });
         }
 
         function isAuthenticated(){
-           return isAuthenticated;
+           return UserAuthenticated;
+        }
+
+        function getUser(){
+            if(user){
+                return $q.when(user)
+            } else {
+                return authentication.getUser(accessToken);
+            }
         }
 
         return{
             rememberUser:rememberUser,
-            getUser:getUser,
-            isAuthenticated:isAuthenticated
-        }
-        ;
+            isAuthenticated:isAuthenticated,
+            getUser:getUser
+        };
     }]);

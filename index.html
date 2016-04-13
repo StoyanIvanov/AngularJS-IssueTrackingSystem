@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="app/app.css">
     <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+<body ng-controller="HomeController" data-gr-c-s-loaded="true" cz-shortcut-listen="true">
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -23,9 +23,18 @@
             </button>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
-            <ul class="nav navbar-nav">
+            <ul ng-show="menuUser" class="nav navbar-nav">
                 <li>
-                    <a href="#/">Home</a>
+                    <a href="#/">Hello, {{currentUser}}</a>
+                </li>
+                <li>
+                    <a href="#/projects">Projects</a>
+                </li>
+                <li>
+                    <a href="#/projects/add">Add Project</a>
+                </li>
+                <li>
+                    <a href="#/logout">Logout</a>
                 </li>
             </ul>
         </div>
@@ -43,8 +52,15 @@
 <script src="app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="app/bower_components/angular/angular.js"></script>
 <script src="app/bower_components/angular-cookies/angular-cookies.min.js"></script>
-<script src="app/home/homeController.js"></script>
+<script src="app/users/role.js"></script>
 <script src="app/users/authentication.js"></script>
+<script src="app/dashboard/dashboard.js"></script>
+<script src="app/general/mainController.js"></script>
+<script src="app/home/homeController.js"></script>
+<script src="app/login/loginController.js"></script>
+<script src="app/register/registerController.js"></script>
+<script src="app/users/userIssues.js"></script>
+<script src="app/general/menuButtons-directive.js"></script>
 <script src="app/bower_components/angular-route/angular-route.js"></script>
 <script src="app/app.js"></script>
 </body>
