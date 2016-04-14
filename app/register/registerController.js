@@ -12,7 +12,7 @@ angular.module('issueTracker.registerController',[
     }])
     .controller('RegisterController',['$scope','$location','authentication','role','$rootScope',function($scope,$location,authentication,role,$rootScope){
 
-        if(!role.isAuthenticated){
+        if(!role.isAuthenticated()){
 
             $scope.register=function(user){
                 authentication.registerUser(user)

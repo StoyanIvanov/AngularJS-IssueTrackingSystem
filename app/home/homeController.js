@@ -10,11 +10,19 @@ angular.module('issueTracker.homeController',[
         })
 
     }])
-.controller('HomeController',['$scope','$location','authentication','role',function($scope,$location,authentication,role){
+.controller('HomeController',['$scope','$location','authentication','role','$rootScope',function($scope,$location,authentication,role,$rootScope){
 
-    if(!role.isAuthenticated){
-        console.log(role.isAuthenticated);
+    if(!role.isAuthenticated()){
+
         $location.path('/login');
     }
+
+    role.getUser()
+        .then(function (user) {
+            console.log(user);
+            $rootScope.currentUser= user.Username;
+            $rootScope.menuUser=true;
+        });
+
 
 }]);
