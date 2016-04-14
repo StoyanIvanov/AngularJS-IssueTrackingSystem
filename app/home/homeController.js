@@ -13,16 +13,22 @@ angular.module('issueTracker.homeController',[
 .controller('HomeController',['$scope','$location','authentication','role','$rootScope',function($scope,$location,authentication,role,$rootScope){
 
     if(!role.isAuthenticated()){
-
         $location.path('/login');
     }
 
     role.getUser()
         .then(function (user) {
-            console.log(user);
+            role.rememberUser(user);
             $rootScope.currentUser= user.Username;
             $rootScope.menuUser=true;
+
+            authentication.getUserIssues(role.getToken(),3,1)
+                .then(function (issues) {
+                    $scope.issues=issues;
+                })
         });
+
+
 
 
 }]);

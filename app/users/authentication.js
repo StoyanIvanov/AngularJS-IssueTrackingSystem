@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('issueTracker.authentication',[])
-    .factory('authentication',['$http','$q','BASE_URL', function($http,$q,BASE_URL){
+    .factory('authentication',['$http','$q','BASE_URL','$cookies', function($http,$q,BASE_URL,$cookies){
 
         function registerUser(user){
             var deferred=$q.defer();
@@ -30,6 +30,7 @@ angular.module('issueTracker.authentication',[])
                 },
                 data: data
             }).then(function(response) {
+                $cookies.put('usr_it', response.data.access_token);
                 deferred.resolve(response.data);
             },function(error){
                 deferred.reject(error);
@@ -53,6 +54,39 @@ angular.module('issueTracker.authentication',[])
             return deferred.promise;
         }
 
+        function getUsers(token){
+            var deferred=$q.defer();
+            var authorization='Bearer ' + token;
+
+            $http.defaults.headers.common.Authorization=authorization;
+            $http.get(BASE_URL+'Users/',$http.header)
+                .then(function(user){
+                    deferred.resolve(user.data);
+                },function(error){
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        }
+
+        function getUserIssues(token,pageSize,pageNumber,orderBy){
+            var deferred=$q.defer();
+            var pageSize=pageSize || 10;
+            var pageNumber=pageNumber || 1;
+            var orderBy=orderBy || 'Project.Name desc, IssueKey';
+            var authorization='Bearer ' + token;
+
+            $http.defaults.headers.common.Authorization=authorization;
+            $http.get(BASE_URL+'Issues/me?orderBy='+orderBy+'&pageSize='+pageSize+'&pageNumber='+pageNumber,$http.header)
+                .then(function(issues){
+                    deferred.resolve(issues.data);
+                },function(error){
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        }
+
         function logoutUser(){
 
         }
@@ -61,6 +95,8 @@ angular.module('issueTracker.authentication',[])
             registerUser:registerUser,
             loginUser:loginUser,
             logoutUser:logoutUser,
-            getUser:getUser
+            getUser:getUser,
+            getUserIssues:getUserIssues,
+            getUsers:getUsers
         }
     }]);

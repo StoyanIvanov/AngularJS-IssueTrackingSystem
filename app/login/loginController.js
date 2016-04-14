@@ -16,7 +16,7 @@ angular.module('issueTracker.loginController',[
             $scope.login=function(user){
                 authentication.loginUser(user)
                     .then(function(user){
-                        role.rememberUser(user.access_token,user.userName);
+                        role.rememberUser(user);
                         $location.path('/');
                     });
             };

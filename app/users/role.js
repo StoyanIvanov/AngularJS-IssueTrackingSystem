@@ -5,37 +5,46 @@ angular.module('issueTracker.users.role',[])
 
         var accessToken='';
         var userName='';
-        var UserAuthenticated=false;
+        var userAuthenticated=false;
         var user=undefined;
 
-        function rememberUser(token, username) {
-            accessToken = token;
-            userName = username;
-            $cookies.put('usr_it', accessToken);
-            $cookies.put('userName', userName);
-            UserAuthenticated = true;
+        function rememberUser(loginUser) {
+            $cookies.put('userName', loginUser.userName);
+            $cookies.put('userID', loginUser.Id);
+            $cookies.put('isAdmin', loginUser.isAdmin);
+            userAuthenticated = true;
+            user=loginUser;
 
-            authentication.getUser(accessToken)
-                .then(function (userData) {
-                    user = userData;
-                });
         }
 
         function isAuthenticated(){
-           return UserAuthenticated;
+
+            if(!$cookies.get('usr_it') && userAuthenticated==false){
+                return false;
+            }
+
+            if(user || $cookies.get('usr_it')){
+               return true;
+            }
+
         }
 
         function getUser(){
             if(user){
                 return $q.when(user)
             } else {
-                return authentication.getUser(accessToken);
+                return authentication.getUser($cookies.get('usr_it'))
             }
+        }
+
+        function getToken(){
+            return $cookies.get('usr_it');
         }
 
         return{
             rememberUser:rememberUser,
             isAuthenticated:isAuthenticated,
-            getUser:getUser
+            getUser:getUser,
+            getToken:getToken
         };
     }]);
