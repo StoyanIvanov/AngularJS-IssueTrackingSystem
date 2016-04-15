@@ -87,6 +87,36 @@ angular.module('issueTracker.authentication',[])
             return deferred.promise;
         }
 
+        function getAllProjects(token){
+            var deferred=$q.defer();
+            var authorization='Bearer ' + token;
+
+            $http.defaults.headers.common.Authorization=authorization;
+            $http.get(BASE_URL+'Projects/',$http.header)
+                .then(function(projects){
+                    deferred.resolve(projects.data);
+                },function(error){
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        }
+
+        function getProject(token, id){
+            var deferred=$q.defer();
+            var authorization='Bearer ' + token;
+
+            $http.defaults.headers.common.Authorization=authorization;
+            $http.get(BASE_URL+'Projects/'+id,$http.header)
+                .then(function(projects){
+                    deferred.resolve(projects.data);
+                },function(error){
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        }
+
         function logoutUser(){
 
         }
@@ -97,6 +127,8 @@ angular.module('issueTracker.authentication',[])
             logoutUser:logoutUser,
             getUser:getUser,
             getUserIssues:getUserIssues,
-            getUsers:getUsers
+            getUsers:getUsers,
+            getAllProjects:getAllProjects,
+            getProject:getProject
         }
     }]);

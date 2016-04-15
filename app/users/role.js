@@ -3,7 +3,6 @@
 angular.module('issueTracker.users.role',[])
     .factory('role',['$http','$q','$cookies','authentication',function($http,$q,$cookies,authentication){
 
-        var accessToken='';
         var userName='';
         var userAuthenticated=false;
         var user=undefined;
