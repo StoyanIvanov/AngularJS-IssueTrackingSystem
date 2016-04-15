@@ -21,6 +21,7 @@ angular.module('issueTracker.homeController',[
             role.rememberUser(user);
             $rootScope.currentUser= user.Username;
             $rootScope.menuUser=true;
+            $scope.role=role.getRole();
 
             authentication.getUserIssues(role.getToken(),3,1)
                 .then(function (issues) {

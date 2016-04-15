@@ -37,6 +37,10 @@ angular.module('issueTracker.users.role',[])
             }
         }
 
+        function getRole(){
+            return user.isAdmin;
+        }
+
         function getToken(){
             return $cookies.get('usr_it');
         }
@@ -45,6 +49,7 @@ angular.module('issueTracker.users.role',[])
             rememberUser:rememberUser,
             isAuthenticated:isAuthenticated,
             getUser:getUser,
-            getToken:getToken
+            getToken:getToken,
+            getRole:getRole
         };
     }]);
