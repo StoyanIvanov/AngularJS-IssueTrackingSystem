@@ -21,21 +21,17 @@ angular.module('issueTracker.homeController',[
             role.rememberUser(user);
             $rootScope.currentUser= user.Username;
             $rootScope.menuUser=true;
-            //TODO
-            //$scope.lead=user.Username
-            $scope.lead='ivan@gmail.';
+            $scope.lead=user.Username
             $scope.role=user.isAdmin;
         });
 
     authentication.getUserIssues(role.getToken(),3,1)
         .then(function (issues) {
-            console.log(issues);
             $scope.issues=issues;
         });
 
     authentication.getAllProjects(role.getToken())
         .then(function(projects){
-            console.log(projects);
             $scope.projects=projects;
         })
 

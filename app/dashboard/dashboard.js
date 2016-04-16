@@ -12,7 +12,6 @@ angular.module('issueTracker.dashboard',['issueTracker.dashboard.userIssues'])
     .controller('DashboardController',['$scope','role','userIssues',function($scope,role,userIssues){
         userIssues.getIssues()
             .then(function(issues){
-                console.log(issues);
                 $scope.issues=issues;
         })
     }]);
