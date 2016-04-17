@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-6">
+        <p class="bs-component">
+            <a href="#/projects/{{projectId}}" class="btn btn-primary">Go Back to Project</a>
+            <a href="#/" class="btn btn-primary">Dashboard</a>
+            <a ng-if="role" href="#/projects" class="btn btn-primary">Projects</a>
+        </p>
+    </div>
+    <div class="col-md-2">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-sm-6">
+        <form name="addIssue">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input id="title" ng-model="addIssue.title" class="form-control" type="text" placeholder="Title"  required/>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea rows="4" cols="50" id="description" ng-model="addIssue.description" class="form-control" type="text" placeholder="Description"  />
+            </div>
+            <div class="form-group">
+                <label for="selectedProject">Project</label>
+                <select class="form-control" id="selectedProject" ng-model="addIssue.project" ng-change="changePriority(addIssue.project)" required>
+                    <option value="" disabled selected>Select Project</option>
+                    <option ng-repeat="project in issueProject">{{project.Name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="assign">Assign to</label>
+                <select class="form-control" id="assign" ng-model="addIssue.user">
+                    <option value="" disabled selected>Assign To</option>
+                    <option ng-repeat="user in users | filter : user.Username" value="{{user}}" required>{{user.Username}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="priority">Priority</label>
+                <select class="form-control" id="priority" ng-model="addIssue.priority">
+                    <option value="" disabled selected>Select Priority</option>
+                    <option ng-repeat="priority in priorities" value="{{priority}}">{{priority.Name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="selectDate">Duo Date</label>
+                <input id="selectDate" ng-model="addIssue.selectDate" class="form-control" placeholder="Select Duo Date" type="date"  required/>
+            </div>
+            <div class="form-group">
+                <label for="labels">Labels</label>
+                <select class="form-control" id="labels" ng-model="addIssue.labels" multiple required>
+                    <option ng-repeat="label in labels" value="{{label}}">{{label.Name}}</option>
+                </select>
+            </div>
+            <br />
+            <button type="button" class="btn btn-primary" ng-disabled="addIssue.$invalid"
+                    ng-class="addIssue.$invalid ? 'disabled-button' :''"
+                    ng-click="update(addIssue)" >Update Project
+            </button>
+        </form>
+    </div>
+    <div class="col-md-2">
+    </div>
+</div>
