@@ -24,13 +24,11 @@ angular.module('issueTracker.users.role',[])
 
         function isAuthenticated(){
 
-            if(!$cookies.get('usr_it') && userAuthenticated==false){
-                return false;
-            }
-
-            if(user || $cookies.get('usr_it')){
+            if(user!==undefined || $cookies.get('usr_it')){
                return true;
             }
+
+            return false;
 
         }
 
@@ -60,7 +58,7 @@ angular.module('issueTracker.users.role',[])
             $cookies.remove('userID');
             $cookies.remove('isAdmin');
 
-            $rootScope.currentUser= undefined;
+            $rootScope.currentUser=undefined;
             $rootScope.menuUser=false;
         }
 

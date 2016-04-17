@@ -22,7 +22,7 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
+        <div ng-if="menuUser" class="navbar-collapse collapse" id="navbar-main">
             <ul ng-show="menuUser" class="nav navbar-nav">
                 <li>
                     <a href="#/">Hello, {{currentUser}}</a>
@@ -52,12 +52,12 @@
 <script src="app/dashboard/dashboard.js"></script>
 <script src="app/general/mainController.js"></script>
 <script src="app/home/homeController.js"></script>
-<script src="app/login/loginController.js"></script>
+<script src="app/access/loginController.js"></script>
 <script src="app/projects/addProjectController.js"></script>
 <script src="app/register/registerController.js"></script>
 <script src="app/projects/project-page-controller.js"></script>
 <script src="app/issues/addIssueController.js"></script>
-<script src="app/users/logout.js"></script>
+<script src="app/access/logout.js"></script>
 <script src="app/users/userIssues.js"></script>
 <script src="app/general/menuButtons-directive.js"></script>
 <script src="app/bower_components/angular-route/angular-route.js"></script>

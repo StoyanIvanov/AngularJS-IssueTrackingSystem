@@ -18,13 +18,12 @@ angular.module('issueTracker.homeController',[
     if(role.isAuthenticated){
         role.getUser()
             .then(function (user) {
-                $rootScope.currentUser= user.Username;
                 $scope.lead=user.Username;
-                $rootScope.menuUser=true;
-
                 $scope.role=user.isAdmin;
 
                 if($cookies.get('usr_it')){
+                    $rootScope.currentUser= user.Username;
+                    $rootScope.menuUser=true;
 
                     authentication.getUserIssues(role.getToken(),3,1)
                         .then(function (issues) {
