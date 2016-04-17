@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('issueTracker.users.role',[])
-    .factory('role',['$http','$q','$cookies','authentication',function($http,$q,$cookies,authentication){
+    .factory('role',['$http','$q','$cookies','authentication','$rootScope','$location',function($http,$q,$cookies,authentication,$rootScope,$location){
 
         var userName='';
         var userAuthenticated=false;
@@ -11,8 +11,14 @@ angular.module('issueTracker.users.role',[])
             $cookies.put('userName', loginUser.userName);
             $cookies.put('userID', loginUser.Id);
             $cookies.put('isAdmin', loginUser.isAdmin);
-            userAuthenticated = true;
-            user=loginUser;
+            $cookies.put('usr_it', loginUser.access_token);
+            if($cookies.get('usr_it')){
+                authentication.getUser($cookies.get('usr_it'))
+                    .then(function (userInfo) {
+                        userAuthenticated = true;
+                        user=userInfo;
+                    });
+            }
 
         }
 
@@ -29,10 +35,12 @@ angular.module('issueTracker.users.role',[])
         }
 
         function getUser(){
-            if(user){
+            if(userAuthenticated){
                 return $q.when(user)
-            } else {
+            } else if($cookies.get('usr_it')) {
                 return authentication.getUser($cookies.get('usr_it'))
+            } else {
+                return $q.when(userAuthenticated);
             }
         }
 
@@ -44,11 +52,24 @@ angular.module('issueTracker.users.role',[])
             return $cookies.get('usr_it');
         }
 
+        function logout(){
+            user=undefined;
+            userAuthenticated=false;
+            $cookies.remove('userName');
+            $cookies.remove('usr_it');
+            $cookies.remove('userID');
+            $cookies.remove('isAdmin');
+
+            $rootScope.currentUser= undefined;
+            $rootScope.menuUser=false;
+        }
+
         return{
             rememberUser:rememberUser,
             isAuthenticated:isAuthenticated,
             getUser:getUser,
             getToken:getToken,
-            getRole:getRole
+            getRole:getRole,
+            logout:logout
         };
     }]);

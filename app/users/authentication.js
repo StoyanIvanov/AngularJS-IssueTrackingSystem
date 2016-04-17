@@ -3,6 +3,7 @@
 angular.module('issueTracker.authentication',[])
     .factory('authentication',['$http','$q','BASE_URL','$cookies', function($http,$q,BASE_URL,$cookies){
 
+
         function registerUser(user){
             var deferred=$q.defer();
 
@@ -30,7 +31,6 @@ angular.module('issueTracker.authentication',[])
                 },
                 data: data
             }).then(function(response) {
-                $cookies.put('usr_it', response.data.access_token);
                 deferred.resolve(response.data);
             },function(error){
                 deferred.reject(error);
@@ -87,34 +87,52 @@ angular.module('issueTracker.authentication',[])
             return deferred.promise;
         }
 
-        function getAllProjects(token){
+        function getIssuesByFilter(token,filter,pageSize,pageNumber){
             var deferred=$q.defer();
             var authorization='Bearer ' + token;
+            var pageSize=pageSize || 10;
+            var pageNumber=pageNumber || 1;
 
             $http.defaults.headers.common.Authorization=authorization;
-            $http.get(BASE_URL+'Projects/',$http.header)
-                .then(function(projects){
-                    deferred.resolve(projects.data);
+            $http.get(BASE_URL+'issues/?'+filter+'&pageSize='+pageSize+'&pageNumber='+pageNumber,$http.header)
+                .then(function(issues){
+                    deferred.resolve(issues.data);
                 },function(error){
                     deferred.reject(error);
                 });
 
             return deferred.promise;
+
+        }
+
+        function getAllProjects(token){
+                var deferred=$q.defer();
+                var authorization='Bearer ' + token;
+
+                $http.defaults.headers.common.Authorization=authorization;
+                $http.get(BASE_URL+'Projects/',$http.header)
+                    .then(function(projects){
+                        deferred.resolve(projects.data);
+                    },function(error){
+                        deferred.reject(error);
+                    });
+
+                return deferred.promise;
         }
 
         function getProject(token, id){
-            var deferred=$q.defer();
-            var authorization='Bearer ' + token;
+                var deferred=$q.defer();
+                var authorization='Bearer ' + token;
 
-            $http.defaults.headers.common.Authorization=authorization;
-            $http.get(BASE_URL+'Projects/'+id,$http.header)
-                .then(function(projects){
-                    deferred.resolve(projects.data);
-                },function(error){
-                    deferred.reject(error);
-                });
+                $http.defaults.headers.common.Authorization=authorization;
+                $http.get(BASE_URL+'Projects/'+id,$http.header)
+                    .then(function(projects){
+                        deferred.resolve(projects.data);
+                    },function(error){
+                        deferred.reject(error);
+                    });
 
-            return deferred.promise;
+                return deferred.promise;
         }
 
         function updateProject(token, project){
@@ -142,6 +160,40 @@ angular.module('issueTracker.authentication',[])
 
         }
 
+        function getLabels(token){
+            var deferred=$q.defer();
+            var authorization='Bearer ' + token;
+
+            $http.defaults.headers.common.Authorization=authorization;
+            $http.get(BASE_URL+'Labels/?filter=',$http.header)
+                .then(function(projects){
+                    deferred.resolve(projects.data);
+                },function(error){
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        }
+
+        function addIssue(token, issue){
+            var deferred=$q.defer();
+
+            var authorization='Bearer ' + token;
+
+            $http.defaults.headers.common.Authorization=authorization;
+            $http({
+                method: 'POST',
+                url: BASE_URL+'issues/',
+                data: issue
+            }).then(function(response) {
+                deferred.resolve(response.data);
+            },function(error){
+                deferred.reject(error);
+            });
+
+            return deferred.promise;
+        }
+
         function logoutUser(){
 
         }
@@ -155,6 +207,9 @@ angular.module('issueTracker.authentication',[])
             getUsers:getUsers,
             getAllProjects:getAllProjects,
             getProject:getProject,
-            updateProject:updateProject
+            updateProject:updateProject,
+            addIssue:addIssue,
+            getLabels:getLabels,
+            getIssuesByFilter:getIssuesByFilter
         }
     }]);

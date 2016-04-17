@@ -13,7 +13,8 @@ angular.module('issueTracker', [
     'issueTracker.general.menuButtons',
     'issueTracker.addProjectController',
     'issueTracker.projectPageController',
-    'issueTracker.addIssueController'
+    'issueTracker.addIssueController',
+    'issueTracker.logout'
 
   ]).
   config(['$routeProvider', function($routeProvider) {
