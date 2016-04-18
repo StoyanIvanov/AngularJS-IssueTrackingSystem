@@ -105,6 +105,23 @@ angular.module('issueTracker.authentication',[])
 
         }
 
+        function getIssues(pageSize,pageNumber,orderBy){
+            var deferred=$q.defer();
+            pageSize = pageSize || 10;
+            pageNumber = pageNumber || 1;
+            orderBy = orderBy ||'DueDate desc';
+
+            $http.get(BASE_URL+'Issues/me?pageSize='+pageSize+'&pageNumber='+pageNumber+'&orderBy='+orderBy+'')
+                .then(function(issues){
+                    deferred.resolve(issues.data);
+                },function(error){
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        }
+
+
         function getAllProjects(token){
                 var deferred=$q.defer();
                 var authorization='Bearer ' + token;
@@ -210,6 +227,7 @@ angular.module('issueTracker.authentication',[])
             updateProject:updateProject,
             addIssue:addIssue,
             getLabels:getLabels,
-            getIssuesByFilter:getIssuesByFilter
+            getIssuesByFilter:getIssuesByFilter,
+            getIssues:getIssues
         }
     }]);

@@ -5,7 +5,7 @@ angular.module('issueTracker.logout',[
     ])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/logout',{
-            templateUrl:'app/access/logout.html',
+            templateUrl:'app/templates/logout.html',
             controller:'LogoutController'
         })
 

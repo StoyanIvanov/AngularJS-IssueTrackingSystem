@@ -5,7 +5,7 @@ angular.module('issueTracker.homeController',[
 ])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/',{
-            templateUrl:'app/home/home.html',
+            templateUrl:'app/templates/home.html',
             controller:'HomeController'
         })
     }])
@@ -37,5 +37,13 @@ angular.module('issueTracker.homeController',[
                 }
 
             });
+    }
+
+    $scope.editIssue=function(issue){
+        $location.path('/issues/'+issue.Id);
+    };
+
+    $scope.editProject=function(project){
+        $location.path('/projects/'+project.Id);
     }
 }]);

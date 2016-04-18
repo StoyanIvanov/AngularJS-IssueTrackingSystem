@@ -1,10 +1,10 @@
 'use strict';
 
 
-angular.module('issueTracker.dashboard',['issueTracker.dashboard.userIssues'])
+angular.module('issueTracker.dashboardController',[])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/dashboard',{
-            templateUrl:'app/dashboard/dashboard.html',
+            templateUrl:'app/templates/dashboard.html',
             controller:'DashboardController'
         })
 

@@ -5,7 +5,7 @@ angular.module('issueTracker.addProjectController',[
     ])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/projects/add',{
-            templateUrl:'app/projects/addProject.html',
+            templateUrl:'app/templates/addProject.html',
             controller:'AddProjectController'
         })
 

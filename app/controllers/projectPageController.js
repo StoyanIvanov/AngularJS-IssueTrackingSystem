@@ -5,7 +5,7 @@ angular.module('issueTracker.projectPageController',[
     ])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/projects/:Id',{
-            templateUrl:'app/projects/project-page.html',
+            templateUrl:'app/templates/project-page.html',
             controller:'ProjectPageController'
         })
 
@@ -99,5 +99,9 @@ angular.module('issueTracker.projectPageController',[
             $scope.form=true;
 
         };
+
+        $scope.editIssue=function(issue){
+            $location.path('/issues/'+issue.Id);
+        }
 
     }]);

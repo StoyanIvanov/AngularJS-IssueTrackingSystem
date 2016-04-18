@@ -5,7 +5,7 @@ angular.module('issueTracker.registerController',[
     ])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/register',{
-            templateUrl:'app/register/register.html',
+            templateUrl:'app/templates/register.html',
             controller:'RegisterController'
         })
 

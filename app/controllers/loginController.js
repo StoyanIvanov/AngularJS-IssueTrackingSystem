@@ -5,7 +5,7 @@ angular.module('issueTracker.loginController',[
     ])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/login',{
-            templateUrl:'app/access/login.html',
+            templateUrl:'app/templates/login.html',
             controller:'LoginController'
         })
 
