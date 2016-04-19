@@ -1,10 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="row">
+    <div class="col-md-3">
+        <p class="bs-component">
+            <a href="#/" class="btn btn-primary">Dashboard</a>
+            <a ng-if="role" href="#/projects" class="btn btn-primary">Projects</a>
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <form  name="editIssue">
+            <div class="form-group">
+                <label for="projectTitle">Title</label>
+                <input ng-disabled="disabled" id="projectTitle" ng-model="editedIssue.Title" class="form-control" name="editIssue.title" type="text" required/>
+            </div>
+            <div class="form-group">
+                <label for="projectDescription">Description</label>
+                <input ng-disabled="disabled"  id="projectDescription" ng-model="editedIssue.Description" class="form-control" name="editIssue.description" type="text"  required/>
+            </div>
+            <div class="form-group">
+                <label for="assignId">Assign to</label>
+                <input  ng-if="visible" ng-disabled="disabled" ng-model="editedIssue.Assignee.Username" class="form-control" type="text"/>
+                <select ng-if="editable" ng-disabled="disabled"
+                        ng-options="user as user.Username for user in users | orderBy:'Username'"
+                        class="form-control" id="assignId" ng-model="assign">
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="prioritySelect">Prioity</label>
+                <input ng-if="visible"  ng-disabled="disabled" ng-model="editedIssue.Priority.Name" class="form-control" type="text"/>
+                <select ng-if="editable" ng-disabled="disabled"
+                        ng-options="element as element.Name for element in priorities"
+                        class="form-control" id="prioritySelect" ng-model="priority" required >
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="duoDate">Duo Date</label>
+                <input ng-disabled="disabled"  id="duoDate" ng-model="editedIssue.DueDate" class="form-control" name="editIssue.duoDate" type="datetime"  required/>
+            </div>
+            <div class="form-group">
+                <p>Athor: {{editedIssue.Author.Username}}</p>
+                <p>Project: {{editedIssue.Project.Name}}</p>
+                <p>Labels: {{labels}}</p>
+                <div ng-if="editButton">
+                    <p>
+                        Status: {{editedIssue.Status.Name}}
+                    <div ng-repeat="status in statuses" ng-click="changeStatus(status)" value="{{status}}" id="" class="btn btn-primary">{{status.Name}}</div>
+                    </p>
+                </div>
 
-</body>
-</html>
+            </div>
+            <div href="" ng-if="role" ng-click="edit()" class="btn btn-primary">Edit / Lock Issues</div>
+            <button ng-if="editable" type="button" class="btn btn-primary" ng-disabled="editIssue.$invalid" ng-class="editIssue.$invalid ? 'disabled-button' :''" ng-click="updateIssue(editedIssue, assign, priority)" >Update Issue</button>
+        </form>
+    </div>
+</div>
