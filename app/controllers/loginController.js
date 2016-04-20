@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('issueTracker.loginController',[
-        'issueTracker.authentication'
+        'issueTracker.authentication',
+        'notyModule'
     ])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/login',{
@@ -10,7 +11,7 @@ angular.module('issueTracker.loginController',[
         })
 
     }])
-    .controller('LoginController',['$scope','$location','authentication','role','$rootScope',function($scope,$location,authentication,role){
+    .controller('LoginController',['$scope','$location','authentication','role','$rootScope','notyModule',function($scope,$location,authentication,role,noty){
 
         if(!role.isAuthenticated()){
             $scope.login=function(user){
@@ -19,12 +20,16 @@ angular.module('issueTracker.loginController',[
                         role.rememberUser(user);
                         role.getUser()
                             .then(function(){
+                                $scope.showNotification('Login successful!');
                                 $location.path('/');
                             });
 
                     });
             };
         }
+        $scope.showNotification = function (message) {
+            noty.show(message)
+        };
 
 
     }]);
