@@ -44,7 +44,6 @@ angular.module('issueTracker.addIssueController',[
         $scope.changePriority=function (selectedPriority){
             allProject.forEach(function(project){
                if(project.Name==selectedPriority){
-                   console.log(project);
                    $scope.priorities=project.Priorities;
                    projectId=project.Id;
                }
@@ -71,7 +70,6 @@ angular.module('issueTracker.addIssueController',[
 
             authentication.addIssue(token, newIssue)
                 .then(function (response) {
-                    console.log(response);
                 })
 
         }

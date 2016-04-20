@@ -20,10 +20,14 @@ angular.module('issueTracker.changePasswordController',[
         $scope.isAuthenticated=role.isAuthenticated();
 
             $scope.changePassword=function(changePasswordData){
-                console.log(changePasswordData);
+
                 authentication.changePassword(token,changePasswordData)
                     .then(function (response) {
-                    })
+                        $location.path('/');
+                    });
+
+
+
             }
 
 

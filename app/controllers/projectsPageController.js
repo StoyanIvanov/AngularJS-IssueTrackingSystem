@@ -26,7 +26,6 @@ angular.module('issueTracker.projectsPageController',[
 
                 authentication.getProjects(token)
                     .then(function(projects){
-                        console.log(projects);
 
                         for(var i = 1; i <= projects.TotalPages; i++){
                             var page={
@@ -35,7 +34,6 @@ angular.module('issueTracker.projectsPageController',[
                             pages.push(page);
                         };
                         $scope.pages=pages;
-                        console.log(pages);
                         $scope.projects=projects.Projects;
                     })
             });

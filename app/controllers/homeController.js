@@ -35,7 +35,6 @@ angular.module('issueTracker.homeController',[
                     filter='Lead.Id="'+user.Id+'"';
                     authentication.getUserIssues(token,'',10)
                         .then(function (issues) {
-                            console.log(issues)
                             for(var i = 1; i <= issues.TotalPages; i++){
                                 var page={
                                     number:i

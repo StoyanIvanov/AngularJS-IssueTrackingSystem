@@ -52,7 +52,6 @@ angular.module('issueTracker.editIssueController',[
 
                             authentication.getProject(role.getToken(),issue.Project.Id)
                                 .then(function (project) {
-                                    console.log(project.Priorities);
                                     $scope.priorities=project.Priorities;
 
                                     if(user.Username==project.Lead.Username){

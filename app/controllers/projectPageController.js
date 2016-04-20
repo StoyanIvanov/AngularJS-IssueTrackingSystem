@@ -71,7 +71,6 @@ angular.module('issueTracker.projectPageController',[
                     users.forEach(function(element){
                         if(element.Username===inputLead){
                             searchUser=element;
-                            console.log(element);
                         }
                     });
 

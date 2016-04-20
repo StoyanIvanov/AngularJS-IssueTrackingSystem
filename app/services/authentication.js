@@ -299,7 +299,7 @@ angular.module('issueTracker.authentication',[])
             var data='OldPassword=' + encodeURIComponent(data.oldPassword) +
                 '&NewPassword=' + encodeURIComponent(data.newPassword) +
                 '&ConfirmPassword=' + encodeURIComponent(data.confirmPassword);
- 
+
             $http({
                 method: 'POST',
                 url: BASE_URL+'api/Account/ChangePassword',
