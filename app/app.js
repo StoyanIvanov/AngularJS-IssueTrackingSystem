@@ -15,7 +15,8 @@ angular.module('issueTracker', [
     'issueTracker.addIssueController',
     'issueTracker.logout',
     'issueTracker.editIssueController',
-    'issueTracker.projectsPageController'
+    'issueTracker.projectsPageController',
+    'issueTracker.changePasswordController'
 
   ]).
   config(['$routeProvider', function($routeProvider) {

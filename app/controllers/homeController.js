@@ -15,10 +15,12 @@ angular.module('issueTracker.homeController',[
         $location.path('/login');
     }
 
-    var pages=[];
+    var projectPages=[];
+    var issuesPages=[];
     var token=role.getToken();
     var filter;
-    $scope.setPage=1;
+    $scope.setProjectPage=1;
+    $scope.setIssuesPage=1;
 
     if(role.isAuthenticated){
         role.getUser()
@@ -31,25 +33,31 @@ angular.module('issueTracker.homeController',[
                     $rootScope.menuUser=true;
 
                     filter='Lead.Id="'+user.Id+'"';
-                    authentication.getUserIssues(token,3,1)
+                    authentication.getUserIssues(token,'',10)
                         .then(function (issues) {
-                            $scope.issues=issues;
+                            console.log(issues)
+                            for(var i = 1; i <= issues.TotalPages; i++){
+                                var page={
+                                    number:i
+                                };
+                                issuesPages.push(page);
+                            };
+                            $scope.issuesPages=issuesPages;
+                            $scope.issues=issues.Issues;
                         });
 
                     authentication.getProjects(token,filter)
                         .then(function(projects){
-
                             for(var i = 1; i <= projects.TotalPages; i++){
                                 var page={
                                     number:i
                                 };
-                                pages.push(page);
+                                projectPages.push(page);
                             };
-                            $scope.pages=pages;
+                            $scope.projectPages=projectPages;
                             $scope.projects=projects.Projects;
                         })
                 }
-
             });
     }
 
@@ -61,12 +69,22 @@ angular.module('issueTracker.homeController',[
         $location.path('/projects/'+project.Id);
     };
 
-    $scope.toPage=function(page){
-        if(page.number!=$scope.setPage){
+    $scope.toProjectPage=function(page){
+        if(page.number!=$scope.setProjectPage){
             authentication.getProjects(token,filter,10,page.number)
                 .then(function (projects) {
                     $scope.projects=projects.Projects;
-                    $scope.setPage=page.number;
+                    $scope.setProjectPage=page.number;
+                })
+        }
+    };
+
+    $scope.toIssuesPage=function(page){
+        if(page.number!=$scope.setIssuesPage){
+            authentication.getUserIssues(token,'',10,page.number)
+                .then(function (issues) {
+                    $scope.issues=issues.Issues;
+                    $scope.setIssuesPage=page.number;
                 })
         }
     }

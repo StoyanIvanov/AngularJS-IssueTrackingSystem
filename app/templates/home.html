@@ -32,7 +32,7 @@
                 <th>Due Date</th>
             </tr>
             </thead>
-            <tbody ng-repeat="issue in issues.Issues">
+            <tbody ng-repeat="issue in issues">
                 <tr ng-click="editIssue(issue)">
                     <td>{{issue.Title}}</td>
                     <td>{{issue.Description}}</td>
@@ -46,9 +46,12 @@
 <div class="row">
     <div class="col-sm-6">
         <ul class="pagination">
-            <li ng-repeat="page in pages" ng-class="{'active':page.number==setPage}" ><a href="" ng-click="toPage(page)">{{page.number}}</a></li>
+            <li ng-repeat="page in projectPages" ng-class="{'active':page.number==setProjectPage}" ><a href="" ng-click="toProjectPage(page)">{{page.number}}</a></li>
         </ul>
     </div>
     <div class="col-sm-6">
+        <ul class="pagination">
+            <li ng-repeat="issue in issuesPages" ng-class="{'active':issue.number==setIssuesPage}" ><a href="" ng-click="toIssuesPage(issue)">{{issue.number}}</a></li>
+        </ul>
     </div>
 </div>

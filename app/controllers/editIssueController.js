@@ -33,19 +33,17 @@ angular.module('issueTracker.editIssueController',[
                     authentication.getIssue(role.getToken(),issueId)
                         .then(function (issue) {
                             var labels='';
-                            console.log(issue);
                             issueEdited=issue;
-                            $scope.statuses=statuses;
                             $scope.editedIssue=issue;
 
                             issue.AvailableStatuses.forEach(function(status){
                                 statuses.push(status);
                             });
+                            $scope.statuses=statuses;
 
                             issue.Labels.forEach(function (label) {
                                 labels=labels+label.Name+', ';
                             });
-
                             $scope.labels=labels;
 
                             if(issue.Assignee.Username==user.Username){
@@ -54,12 +52,12 @@ angular.module('issueTracker.editIssueController',[
 
                             authentication.getProject(role.getToken(),issue.Project.Id)
                                 .then(function (project) {
-                                    $scope.issueProject=project;
+                                    console.log(project.Priorities);
                                     $scope.priorities=project.Priorities;
 
                                     if(user.Username==project.Lead.Username){
                                         $scope.assign=true;
-                                    };
+                                    }
                                 });
 
                             authentication.getUsers(role.getToken())
@@ -86,14 +84,11 @@ angular.module('issueTracker.editIssueController',[
                     receiveStatuses.forEach(function(status){
                         statuses.push(status);
                     });
-                    console.log(statuses);
                     $scope.statuses=statuses;
                 })
         }
 
-        $scope.updateIssue=function (issue, assign, priority){
-            console.log(assign)
-            console.log(priority);
+        $scope.updateIssue=function(issue, assign, priority){
             issue.Assignee= JSON.parse(assign);
             issue.Priority= JSON.parse(priority);
             $scope.disabled=!$scope.disabled;
@@ -103,7 +98,6 @@ angular.module('issueTracker.editIssueController',[
             authentication.updateIssue(role.getToken(),issue)
                 .then(function (returnedIssue) {
                     issueEdited=returnedIssue;
-                    console.log(returnedIssue);
                 })
 
 

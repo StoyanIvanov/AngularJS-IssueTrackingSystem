@@ -15,17 +15,15 @@
             <div class="form-group">
                 <label for="assignId">Assign to</label>
                 <input  ng-if="visible" ng-disabled="disabled" ng-model="editedIssue.Assignee.Username" class="form-control" type="text"/>
-                <select ng-if="editable" ng-disabled="disabled"
-                        ng-options="user as user.Username for user in users | orderBy:'Username'"
-                        class="form-control" id="assignId" ng-model="assign">
+                <select ng-if="editable" ng-disabled="disabled" class="form-control" id="assignId" ng-model="editedIssue.Assignee">
+                    <option ng-repeat="user in users" value="{{user}}">{{user.Username}}</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="prioritySelect">Prioity</label>
                 <input ng-if="visible"  ng-disabled="disabled" ng-model="editedIssue.Priority.Name" class="form-control" type="text"/>
-                <select ng-if="editable" ng-disabled="disabled"
-                        ng-options="element as element.Name for element in priorities"
-                        class="form-control" id="prioritySelect" ng-model="priority" required >
+                <select ng-if="editable" ng-disabled="disabled" class="form-control" id="prioritySelect" ng-model="editedIssue.priority" required >
+                    <option ng-repeat="priority in priorities" value="{{priority}}">{{priority.Name}}</option>
                 </select>
             </div>
             <div class="form-group">
@@ -42,10 +40,9 @@
                     <div ng-repeat="status in statuses" ng-click="changeStatus(status)" value="{{status}}" id="" class="btn btn-primary">{{status.Name}}</div>
                     </p>
                 </div>
-
             </div>
             <div href="" ng-if="role" ng-click="edit()" class="btn btn-primary">Edit / Lock Issues</div>
-            <button ng-if="editable" type="button" class="btn btn-primary" ng-disabled="editIssue.$invalid" ng-class="editIssue.$invalid ? 'disabled-button' :''" ng-click="updateIssue(editedIssue, assign, priority)" >Update Issue</button>
+            <button ng-if="editable" type="button" class="btn btn-primary" ng-disabled="editIssue.$invalid" ng-class="editIssue.$invalid ? 'disabled-button' :''" ng-click="updateIssue(editedIssue, editedIssue.Assignee, editedIssue.priority)" >Update Issue</button>
         </form>
     </div>
 </div>

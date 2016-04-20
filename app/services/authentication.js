@@ -69,7 +69,7 @@ angular.module('issueTracker.authentication',[])
             return deferred.promise;
         }
 
-        function getUserIssues(token,pageSize,pageNumber,orderBy){
+        function getUserIssues(token,orderBy,pageSize,pageNumber){
             var deferred=$q.defer();
             var pageSize=pageSize || 10;
             var pageNumber=pageNumber || 1;
@@ -123,7 +123,7 @@ angular.module('issueTracker.authentication',[])
 
         function getIssue(token,Id){
             var deferred=$q.defer();
-            var authorization='Bearer ' + token;
+            var authorization='Bearer ' + token
 
             $http.defaults.headers.common.Authorization=authorization;
             $http.get(BASE_URL+'Issues/' + Id)
@@ -173,8 +173,6 @@ angular.module('issueTracker.authentication',[])
             var filter=filter || '';
             var pageSize=pageSize || 10;
             var pageNumber=pageNumber || 1;
-
-
 
             $http.defaults.headers.common.Authorization=authorization;
             $http.get(BASE_URL+'projects?'+'filter='+filter+'&pageSize='+pageSize+'&pageNumber='+pageNumber,$http.header)
@@ -296,6 +294,29 @@ angular.module('issueTracker.authentication',[])
 
         }
 
+        function changePassword(token,data){
+            var deferred=$q.defer();
+            var data='OldPassword=' + encodeURIComponent(data.oldPassword) +
+                '&NewPassword=' + encodeURIComponent(data.newPassword) +
+                '&ConfirmPassword=' + encodeURIComponent(data.confirmPassword);
+ 
+            $http({
+                method: 'POST',
+                url: BASE_URL+'api/Account/ChangePassword',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: data
+            }).then(function(response) {
+                deferred.resolve(response.data);
+            },function(error){
+                deferred.reject(error);
+            });
+
+            return deferred.promise;
+
+        }
+
         return {
             registerUser:registerUser,
             loginUser:loginUser,
@@ -313,6 +334,7 @@ angular.module('issueTracker.authentication',[])
             getIssue:getIssue,
             changeStatus:changeStatus,
             updateIssue:updateIssue,
-            getProjects:getProjects
+            getProjects:getProjects,
+            changePassword:changePassword
         }
     }]);
