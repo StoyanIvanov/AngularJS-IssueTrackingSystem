@@ -152,7 +152,7 @@ angular.module('issueTracker.authentication',[])
                 return deferred.promise;
         }
 
-        function getProject(token, id){
+        function getProject(token,id){
                 var deferred=$q.defer();
                 var authorization='Bearer ' + token;
 
@@ -166,6 +166,28 @@ angular.module('issueTracker.authentication',[])
 
                 return deferred.promise;
         }
+
+        function getProjects(token,filter,pageSize,pageNumber){
+            var deferred=$q.defer();
+            var authorization='Bearer ' + token;
+            var filter=filter || '';
+            var pageSize=pageSize || 10;
+            var pageNumber=pageNumber || 1;
+
+
+
+            $http.defaults.headers.common.Authorization=authorization;
+            $http.get(BASE_URL+'projects?'+'filter='+filter+'&pageSize='+pageSize+'&pageNumber='+pageNumber,$http.header)
+                .then(function(projects){
+                    deferred.resolve(projects.data);
+                },function(error){
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        }
+
+
 
         function updateProject(token, project){
             var deferred=$q.defer();
@@ -268,7 +290,6 @@ angular.module('issueTracker.authentication',[])
             });
 
             return deferred.promise;
-
         }
 
         function logoutUser(){
@@ -291,6 +312,7 @@ angular.module('issueTracker.authentication',[])
             getIssues:getIssues,
             getIssue:getIssue,
             changeStatus:changeStatus,
-            updateIssue:updateIssue
+            updateIssue:updateIssue,
+            getProjects:getProjects
         }
     }]);

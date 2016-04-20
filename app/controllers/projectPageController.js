@@ -10,7 +10,7 @@ angular.module('issueTracker.projectPageController',[
         })
 
     }])
-    .controller('ProjectPageController',['$scope','$location','authentication','role','$routeParams',function($scope,$location,authentication,role,$routeParams){
+    .controller('ProjectPageController',['$scope','$location','authentication','role','$routeParams','$rootScope',function($scope,$location,authentication,role,$routeParams,$rootScope){
 
         if(!role.isAuthenticated()){
             $location.path('/');
@@ -20,7 +20,7 @@ angular.module('issueTracker.projectPageController',[
 
             role.getUser()
                 .then(function (user) {
-                    $scope.role=user.isAdmin;
+                    $rootScope.role=user.isAdmin;
 
                     authentication.getProject(role.getToken(),$routeParams.Id)
                         .then(function(editedProject){

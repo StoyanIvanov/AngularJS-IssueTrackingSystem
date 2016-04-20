@@ -10,7 +10,7 @@ angular.module('issueTracker.addIssueController',[
         })
 
     }])
-    .controller('AddIssueController',['$scope','$location','authentication','role','$routeParams',function($scope,$location,authentication,role,$routeParams){
+    .controller('AddIssueController',['$scope','$location','authentication','role','$routeParams','$rootScope',function($scope,$location,authentication,role,$routeParams,$rootScope){
 
         if(!role.isAuthenticated()){
             $location.path('/');
@@ -23,9 +23,7 @@ angular.module('issueTracker.addIssueController',[
 
         role.getUser()
             .then(function (user) {
-                $scope.role=user.isAdmin;
-                //TODO remove next line
-                $scope.role=true;
+                $rootScope.role=user.isAdmin;
             });
 
         authentication.getAllProjects(token)

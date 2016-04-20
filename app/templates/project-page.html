@@ -1,11 +1,8 @@
 <div class="row">
-    <p class="bs-component">
-        <a href="#/" class="btn btn-primary">Dashboard</a>
-        <a ng-if="role" href="#/projects" class="btn btn-primary">Projects</a>
-    </p>
+
 </div>
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-2">
         <h2>Project: {{Name}}</h2>
         <h5>Project Key: {{Key}}</h5>
         <h5>Description: {{Description}}</h5>
@@ -37,7 +34,7 @@
             <button type="button" class="btn btn-primary" ng-disabled="editProject.$invalid" ng-class="editProject.$invalid ? 'disabled-button' :''" ng-click="update(inputName,inputDescription, inputLead)" >Update Project</button>
         </form>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-10">
         <h2>Project Issues</h2>
         <table class="table table-striped table-hover ">
             <thead>
