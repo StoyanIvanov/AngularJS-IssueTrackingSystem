@@ -4,6 +4,7 @@
 angular.module('issueTracker', [
     'ngRoute',
     'ngCookies',
+    'ngFlash',
     'issueTracker.mainController',
     'issueTracker.homeController',
     'issueTracker.loginController',
