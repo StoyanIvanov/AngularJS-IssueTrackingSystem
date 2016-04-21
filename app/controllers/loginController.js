@@ -10,17 +10,21 @@ angular.module('issueTracker.loginController',[
         })
 
     }])
-    .controller('LoginController',['$scope','$location','authentication','role','$rootScope',function($scope,$location,authentication,role){
+    .controller('LoginController',['$scope','$location','authentication','role','$rootScope','noty',function($scope,$location,authentication,role,$rootScope,noty){
 
         if(!role.isAuthenticated()){
             $scope.login=function(user){
                 authentication.loginUser(user)
                     .then(function(user){
                         role.rememberUser(user);
+
+                        noty.show('Success Login!',"success");
+                        setTimeout(function(){ noty.closeAll() }, 1500);
+
                         role.getUser()
                             .then(function(){
+                                $location.path('/');
 
-                                //$location.path('/');
                             });
 
                     });

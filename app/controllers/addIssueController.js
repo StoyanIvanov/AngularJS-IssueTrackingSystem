@@ -10,7 +10,7 @@ angular.module('issueTracker.addIssueController',[
         })
 
     }])
-    .controller('AddIssueController',['$scope','$location','authentication','role','$routeParams','$rootScope',function($scope,$location,authentication,role,$routeParams,$rootScope){
+    .controller('AddIssueController',['$scope','$location','authentication','role','$routeParams','$rootScope','noty',function($scope,$location,authentication,role,$routeParams,$rootScope,noty){
 
         if(!role.isAuthenticated()){
             $location.path('/');
@@ -70,6 +70,8 @@ angular.module('issueTracker.addIssueController',[
 
             authentication.addIssue(token, newIssue)
                 .then(function (response) {
+                    noty.show('The issue is added successful!',"success");
+                    setTimeout(function(){ noty.closeAll() }, 1500);
                 })
 
         }
