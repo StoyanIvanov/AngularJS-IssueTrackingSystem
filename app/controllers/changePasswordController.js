@@ -10,7 +10,7 @@ angular.module('issueTracker.changePasswordController',[
         })
 
     }])
-    .controller('ChangePasswordController',['$scope','$location','authentication','role',function($scope,$location,authentication,role){
+    .controller('ChangePasswordController',['$scope','$location','authentication','role','noty',function($scope,$location,authentication,role,noty){
 
         if(!role.isAuthenticated()){
             $location.path('/login');
@@ -22,14 +22,13 @@ angular.module('issueTracker.changePasswordController',[
             $scope.changePassword=function(changePasswordData){
 
                 authentication.changePassword(token,changePasswordData)
-                    .then(function (response) {
+                    .then(function () {
+                        noty.show('The password is changed successful!',"success");
+                        setTimeout(function(){ noty.closeAll() }, 1500);
                         $location.path('/');
+                    }, function (error) {
+                        noty.show('The password change failed! '+ error.data.error_description,"error");
+                        setTimeout(function(){ noty.closeAll() }, 2000);
                     });
-
-
-
             }
-
-
-
     }]);

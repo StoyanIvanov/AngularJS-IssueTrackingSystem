@@ -3,7 +3,6 @@
 angular.module('issueTracker.authentication',[])
     .factory('authentication',['$http','$q','BASE_URL','$cookies', function($http,$q,BASE_URL,$cookies){
 
-
         function registerUser(user){
             var deferred=$q.defer();
 
@@ -102,7 +101,6 @@ angular.module('issueTracker.authentication',[])
                 });
 
             return deferred.promise;
-
         }
 
         function getIssues(pageSize,pageNumber,orderBy){
@@ -135,7 +133,6 @@ angular.module('issueTracker.authentication',[])
 
             return deferred.promise;
         }
-
 
         function getAllProjects(token){
                 var deferred=$q.defer();
@@ -185,8 +182,6 @@ angular.module('issueTracker.authentication',[])
             return deferred.promise;
         }
 
-
-
         function updateProject(token, project){
             var deferred=$q.defer();
             var data='Name=' + encodeURIComponent(project.Name) +
@@ -209,7 +204,6 @@ angular.module('issueTracker.authentication',[])
             });
 
             return deferred.promise;
-
         }
 
         function getLabels(token){
@@ -290,8 +284,38 @@ angular.module('issueTracker.authentication',[])
             return deferred.promise;
         }
 
-        function logoutUser(){
+        function addProject(token, project){
+            var deferred=$q.defer();
+            var data='Name=' + encodeURIComponent(project.Name) +
+                '&Description=' + encodeURIComponent(project.Description) +
+                '&ProjectKey='+ encodeURIComponent(project.ProjectKey);
 
+            for(var i=0;i < project.Labels.ength;i++){
+                data=data+'&labels['+i+'].Name='+project.labels[i];
+            }
+
+            for(i=0;i < project.Priorities.length;i++){
+                data=data+'&priorities['+i+'].Name='+project.Priorities[i];
+            }
+
+            data=data+'&LeadId=' + encodeURIComponent(project.LeadId);
+
+            var authorization='Bearer ' + token;
+            $http.defaults.headers.common.Authorization=authorization;
+            $http({
+                method: 'POST',
+                url: BASE_URL+'projects',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: data
+            }).then(function(response) {
+                deferred.resolve(response.data);
+            },function(error){
+                deferred.reject(error);
+            });
+
+            return deferred.promise;
         }
 
         function changePassword(token,data){
@@ -314,6 +338,9 @@ angular.module('issueTracker.authentication',[])
             });
 
             return deferred.promise;
+        }
+
+        function logoutUser(){
 
         }
 
@@ -335,6 +362,7 @@ angular.module('issueTracker.authentication',[])
             changeStatus:changeStatus,
             updateIssue:updateIssue,
             getProjects:getProjects,
-            changePassword:changePassword
+            changePassword:changePassword,
+            addProject:addProject
         }
     }]);

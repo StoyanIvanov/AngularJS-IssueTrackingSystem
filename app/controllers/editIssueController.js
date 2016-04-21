@@ -10,8 +10,7 @@ angular.module('issueTracker.editIssueController',[
         })
 
     }])
-    .controller('EditIssueController',['$scope','$location','authentication','role','$routeParams','$rootScope',function($scope,$location,authentication,role,$routeParams,$rootScope){
-
+    .controller('EditIssueController',['$scope','$location','authentication','role','$routeParams','$rootScope','noty',function($scope,$location,authentication,role,$routeParams,$rootScope,noty){
         if(!role.isAuthenticated()){
             $location.path('/');
         }
@@ -63,14 +62,13 @@ angular.module('issueTracker.editIssueController',[
                                 .then(function (users) {
                                     $scope.users=users;
                                 })
-
                         })
                 });
         }
 
         $scope.edit=function(){
-            $scope.disabled=!$scope.disabled;
-            $scope.editable=!$scope.editable;
+            $scope.disabled= ! $scope.disabled;
+            $scope.editable= ! $scope.editable;
             $scope.visible = ! $scope.visible;
 
         };
@@ -85,7 +83,7 @@ angular.module('issueTracker.editIssueController',[
                     });
                     $scope.statuses=statuses;
                 })
-        }
+        };
 
         $scope.updateIssue=function(issue, assign, priority){
             issue.Assignee= JSON.parse(assign);
@@ -96,10 +94,13 @@ angular.module('issueTracker.editIssueController',[
 
             authentication.updateIssue(role.getToken(),issue)
                 .then(function (returnedIssue) {
+                    noty.show('The issue is update successful!',"success");
+                    setTimeout(function(){ noty.closeAll() }, 1500);
                     issueEdited=returnedIssue;
+                }, function (error) {
+                    noty.show('The update issue is failed! '+ error.data.error_description,"error");
+                    setTimeout(function(){ noty.closeAll() }, 2000);
                 })
-
-
         }
 
     }]);

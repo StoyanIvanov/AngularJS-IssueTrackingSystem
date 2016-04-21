@@ -17,14 +17,12 @@ angular.module('issueTracker.loginController',[
                 authentication.loginUser(user)
                     .then(function(user){
                         role.rememberUser(user);
-
                         noty.show('Success Login!',"success");
                         setTimeout(function(){ noty.closeAll() }, 1500);
 
                         role.getUser()
                             .then(function(){
                                 $location.path('/');
-
                             });
 
                     },function(error){
@@ -33,5 +31,4 @@ angular.module('issueTracker.loginController',[
                     });
             };
         }
-
     }]);

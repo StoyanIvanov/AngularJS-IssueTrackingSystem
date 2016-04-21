@@ -10,35 +10,45 @@ angular.module('issueTracker.addProjectController',[
         })
 
     }])
-    .controller('AddProjectController',['$scope','$location','authentication','role','$rootScope',function($scope,$location,authentication,role,$rootScope){
+    .controller('AddProjectController',['$scope','$location','authentication','role','$rootScope','noty',function($scope,$location,authentication,role,$rootScope,noty){
 
         if(role.isAuthenticated()){
             authentication.getUsers(role.getToken())
                 .then(function(users){
                     $scope.users=users;
                 })
-
         }
 
+        var token=role.getToken();
+
         $scope.add=function(project){
+            var matches = project.name.match(/\b(\w)/g);
+            var key=matches.join('');
+            var inputLabels=project.labels;
+            var labels=inputLabels.split(",");
+            var inputPriority=project.priority;
+            var priorities=inputPriority.split(",");
 
-                var matches = project.key.match(/\b(\w)/g);
-                var key=matches.join('');
-                var labels=project.labels.split(",");
-                var priorities=project.priority.split(",");
 
+            //TODO Validation
+            var newProject={
+                Name:project.name,
+                Description: project.description,
+                ProjectKey: key,
+                Labels:labels,
+                Priorities: priorities,
+                LeadId: project.lead.Id
+            };
 
-                //TODO Validation
-                var newProject={
-                    Name:project.name,
-                    Description: project.description,
-                    ProjectKey: key,
-                    Labesl:labels,
-                    Priorities: priorities,
-                    LeadId: project.lead.Id
-                };
+            authentication.addProject(token,newProject)
+                .then(function (responce) {
+                    noty.show('The project is added successful!',"success");
+                    setTimeout(function(){ noty.closeAll() }, 1500);
+                },function(error){
+                    noty.show('Login failed! '+ error.data.error_description,"error");
+                    setTimeout(function(){ noty.closeAll() }, 2000);
+                });
 
-                console.log(project)
         }
 
     }]);

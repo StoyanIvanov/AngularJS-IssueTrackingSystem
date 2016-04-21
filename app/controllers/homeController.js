@@ -40,7 +40,7 @@ angular.module('issueTracker.homeController',[
                                     number:i
                                 };
                                 issuesPages.push(page);
-                            };
+                            }
                             $scope.issuesPages=issuesPages;
                             $scope.issues=issues.Issues;
                         });
@@ -52,7 +52,7 @@ angular.module('issueTracker.homeController',[
                                     number:i
                                 };
                                 projectPages.push(page);
-                            };
+                            }
                             $scope.projectPages=projectPages;
                             $scope.projects=projects.Projects;
                         })
