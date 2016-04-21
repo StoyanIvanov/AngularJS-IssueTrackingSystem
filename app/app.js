@@ -9,7 +9,6 @@ angular.module('issueTracker', [
     'issueTracker.homeController',
     'issueTracker.loginController',
     'issueTracker.registerController',
-    'issueTracker.dashboardController',
     'issueTracker.users.role',
     'issueTracker.addProjectController',
     'issueTracker.projectPageController',
@@ -18,7 +17,6 @@ angular.module('issueTracker', [
     'issueTracker.editIssueController',
     'issueTracker.projectsPageController',
     'issueTracker.changePasswordController'
-
   ]).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/'});

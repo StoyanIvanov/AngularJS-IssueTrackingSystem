@@ -24,16 +24,7 @@
             </button>
         </div>
         <div ng-if="menuUser" class="navbar-collapse collapse" id="navbar-main">
-            <ul ng-show="menuUser" class="nav navbar-nav">
-                <li>
-                    <a href="#/">Hello, {{currentUser}}</a>
-                </li>
-                <li>
-                    <a href="#/logout">Logout</a>
-                </li>
-                <li>
-                    <a href="#/profile/password">Change Password</a>
-                </li>
+            <ul ng-show="menuUser" class="nav navbar-nav navbar-left">
                 <li>
                     <a href="#/">Dashboard</a>
                 </li>
@@ -42,6 +33,17 @@
                 </li>
                 <li>
                     <a ng-if="role" href="#/projects/add" >Create Project</a>
+                </li>
+            </ul>
+            <ul ng-show="menuUser" class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#/">Hello, {{currentUser}}</a>
+                </li>
+                <li>
+                    <a href="#/logout">Logout</a>
+                </li>
+                <li>
+                    <a href="#/profile/password">Change Password</a>
                 </li>
             </ul>
         </div>
@@ -61,7 +63,6 @@
 <script src="app/bower_components/angular-cookies/angular-cookies.min.js"></script>
 <script src="app/services/role.js"></script>
 <script src="app/services/authentication.js"></script>
-<script src="app/controllers/dashboardController.js"></script>
 <script src="app/controllers/mainController.js"></script>
 <script src="app/controllers/homeController.js"></script>
 <script src="app/controllers/loginController.js"></script>
