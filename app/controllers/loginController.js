@@ -19,8 +19,8 @@ angular.module('issueTracker.loginController',[
                         role.rememberUser(user);
                         role.getUser()
                             .then(function(){
-                                //$scope.showNotification('Login successful!');
-                                $location.path('/');
+
+                                //$location.path('/');
                             });
 
                     });
