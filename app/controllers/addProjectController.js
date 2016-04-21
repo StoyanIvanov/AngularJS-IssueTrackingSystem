@@ -22,16 +22,23 @@ angular.module('issueTracker.addProjectController',[
 
         $scope.add=function(project){
 
-            if(role.isAuthenticated()){
+                var matches = project.key.match(/\b(\w)/g);
+                var key=matches.join('');
+                var labels=project.labels.split(",");
+                var priorities=project.priority.split(",");
+
+
                 //TODO Validation
                 var newProject={
                     Name:project.name,
                     Description: project.description,
-                    ProjectKey: project.key,
-                    LeadId: project.lead,
-                    Priorities: project.priority
+                    ProjectKey: key,
+                    Labesl:labels,
+                    Priorities: priorities,
+                    LeadId: project.lead.Id
                 };
-            }
+
+                console.log(project)
         }
 
     }]);

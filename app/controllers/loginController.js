@@ -27,6 +27,9 @@ angular.module('issueTracker.loginController',[
 
                             });
 
+                    },function(error){
+                        noty.show('Login failed! '+ error.data.error_description,"error");
+                        setTimeout(function(){ noty.closeAll() }, 2000);
                     });
             };
         }

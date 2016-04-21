@@ -70,8 +70,11 @@ angular.module('issueTracker.addIssueController',[
 
             authentication.addIssue(token, newIssue)
                 .then(function (response) {
-                    noty.show('The issue is added successful!',"success");
+                    noty.show('The issue is added successful!',"Information");
                     setTimeout(function(){ noty.closeAll() }, 1500);
+                },function(error){
+                    noty.show('Login failed! '+ error.data.error_description,"error");
+                    setTimeout(function(){ noty.closeAll() }, 2000);
                 })
 
         }

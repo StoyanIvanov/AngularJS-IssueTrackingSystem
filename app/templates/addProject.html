@@ -7,42 +7,36 @@
                     <div class="form-group">
                         <label for="select" class="col-lg-2 control-label">Select Project Lead</label>
                         <div class="col-lg-10">
-                            <select ng-model="project.lead"  ng-options="user.Username for user in users" class="form-control" id="select">
+                            <select ng-model="addProject.lead"  ng-options="user.Username for user in users" class="form-control" id="select">
                                 <option value="">Select a Project Leader</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputKey" class="col-lg-2 control-label">Project Key</label>
-                        <div class="col-lg-10">
-                            <input ng-model="project.key" type="text" class="form-control" id="inputKey" placeholder="Project Key" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="inputPriority" class="col-lg-2 control-label">Priority (separated by comma)</label>
                         <div class="col-lg-10">
-                            <input ng-model="project.priority" type="text" class="form-control" id="inputPriority" placeholder="Low, Medium, Urgent">
+                            <input ng-model="addProject.priority" type="text" class="form-control" id="inputPriority" placeholder="Low, Medium, Urgent">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputLabels" class="col-lg-2 control-label">Priority (separated by comma)</label>
                         <div class="col-lg-10">
-                            <input ng-model="project.labels" type="text" class="form-control" id="inputLabels" placeholder="Labels">
+                            <input ng-model="addProject.labels" type="text" class="form-control" id="inputLabels" placeholder="Labels">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputName" class="col-lg-2 control-label">Name</label>
                         <div class="col-lg-10">
-                            <input ng-model="project.name" type="text" class="form-control" id="inputName" placeholder="Project Name" required>
+                            <input ng-model="addProject.name" type="text" class="form-control" id="inputName" placeholder="Project Name" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputDescription" class="col-lg-2 control-label">Password</label>
+                        <label for="inputDescription" class="col-lg-2 control-label">Description</label>
                         <div class="col-lg-10">
-                            <input ng-model="project.description" type="text" class="form-control" id="inputDescription" placeholder="Description">
+                            <input ng-model="addProject.description" type="text" class="form-control" id="inputDescription" placeholder="Description">
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary" ng-disabled="addProject.$invalid" ng-class="addProject.$invalid ? 'disabled-button' :''" ng-click="add(project)" >Add new Project</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="addProject.$invalid" ng-class="addProject.$invalid ? 'disabled-button' :''" ng-click="add(addProject)" >Add new Project</button>
                 </fieldset>
             </form>
         </div>
