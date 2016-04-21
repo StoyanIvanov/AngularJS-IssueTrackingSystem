@@ -16,48 +16,43 @@ angular.module('issueTracker.projectPageController',[
             $location.path('/');
         }
 
-            var project={};
+        var project={};
 
-            role.getUser()
-                .then(function (user) {
-                    $rootScope.role=user.isAdmin;
+        role.getUser()
+            .then(function (user) {
+                $rootScope.role=user.isAdmin;
 
-                    authentication.getProject(role.getToken(),$routeParams.Id)
-                        .then(function(editedProject){
-                            project=editedProject;
-                            var label='';
-                            var priorities='';
-                            project=editedProject;
+                authentication.getProject(role.getToken(),$routeParams.Id)
+                    .then(function(editedProject){
+                        var label='';
+                        var priorities='';
+                        project=editedProject;
 
-                            project.Labels.forEach(function(element){
-                                label+=element.Name+', ';
-                            });
-                            project.Priorities.forEach(function(element){
-                                priorities+=element.Name+', ';
-                            });
-
-                            $scope.projectId=project.Id;
-
-                            $scope.Name=project.Name;
-                            $scope.Key=project.ProjectKey;
-                            $scope.Description=project.Description;
-                            $scope.Lead=project.Lead.Username;
-                            $scope.Labels=label;
-                            $scope.Priorities=priorities;
-
-                            $scope.inputName=project.Name;
-                            $scope.inputDescription=project.Description;
-                            $scope.inputLead=project.Lead.Username;
-                        })
-                        .then(function(){
-                            authentication.getIssuesByFilter(role.getToken(),'filter=Project.Name=="'+project.Name+'"')
-                                .then(function(issues){
-                                    $scope.issues=issues
-                                });
+                        project.Labels.forEach(function(element){
+                            label+=element.Name+', ';
+                        });
+                        project.Priorities.forEach(function(element){
+                            priorities+=element.Name+', ';
                         });
 
-                });
-
+                        $scope.projectId=project.Id;
+                        //$scope.Name=project.Name;
+                        //$scope.Key=project.ProjectKey;
+                        //$scope.Description=project.Description;
+                        //$scope.Lead=project.Lead.Username;
+                        //$scope.Labels=label;
+                        //$scope.Priorities=priorities;
+                        $scope.inputName=project.Name;
+                        $scope.inputDescription=project.Description;
+                        $scope.inputLead=project.Lead.Username;
+                    })
+                    .then(function(){
+                        authentication.getIssuesByFilter(role.getToken(),'filter=Project.Name=="'+project.Name+'"')
+                            .then(function(issues){
+                                $scope.issues=issues
+                            });
+                    });
+            });
 
         $scope.update=function(inputName, inputDescription, inputLead){
             //TODO Validation
