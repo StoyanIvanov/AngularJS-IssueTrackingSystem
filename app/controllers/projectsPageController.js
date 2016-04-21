@@ -32,7 +32,8 @@ angular.module('issueTracker.projectsPageController',[
                                 number:i
                             };
                             pages.push(page);
-                        };
+                        }
+
                         $scope.pages=pages;
                         $scope.projects=projects.Projects;
                     })

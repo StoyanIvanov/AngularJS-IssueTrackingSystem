@@ -10,7 +10,7 @@ angular.module('issueTracker.editIssueController',[
         })
 
     }])
-    .controller('EditIssueController',['$scope','$location','authentication','role','$routeParams','$rootScope','noty',function($scope,$location,authentication,role,$routeParams,$rootScope,noty){
+    .controller('EditIssueController',['$scope','$location','authentication','role','$routeParams','$rootScope','noty','$route',function($scope,$location,authentication,role,$routeParams,$rootScope,noty,$route){
         if(!role.isAuthenticated()){
             $location.path('/');
         }
@@ -96,7 +96,7 @@ angular.module('issueTracker.editIssueController',[
                 .then(function (returnedIssue) {
                     noty.show('The issue is update successful!',"success");
                     setTimeout(function(){ noty.closeAll() }, 1500);
-                    issueEdited=returnedIssue;
+                    $route.reload();
                 }, function (error) {
                     noty.show('The update issue is failed! '+ error.data.error_description,"error");
                     setTimeout(function(){ noty.closeAll() }, 2000);

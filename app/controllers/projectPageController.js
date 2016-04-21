@@ -10,19 +10,20 @@ angular.module('issueTracker.projectPageController',[
         })
 
     }])
-    .controller('ProjectPageController',['$scope','$location','authentication','role','$routeParams','$rootScope',function($scope,$location,authentication,role,$routeParams,$rootScope){
+    .controller('ProjectPageController',['$scope','$location','authentication','role','$routeParams','$rootScope','noty','$route',function($scope,$location,authentication,role,$routeParams,$rootScope,noty,$route){
 
         if(!role.isAuthenticated()){
             $location.path('/');
         }
 
         var project={};
+        var token=role.getToken();
 
         role.getUser()
             .then(function (user) {
                 $rootScope.role=user.isAdmin;
 
-                authentication.getProject(role.getToken(),$routeParams.Id)
+                authentication.getProject(token,$routeParams.Id)
                     .then(function(editedProject){
                         var label='';
                         var priorities='';
@@ -36,18 +37,18 @@ angular.module('issueTracker.projectPageController',[
                         });
 
                         $scope.projectId=project.Id;
-                        //$scope.Name=project.Name;
-                        //$scope.Key=project.ProjectKey;
-                        //$scope.Description=project.Description;
-                        //$scope.Lead=project.Lead.Username;
-                        //$scope.Labels=label;
-                        //$scope.Priorities=priorities;
+                        $scope.Name=project.Name;
+                        $scope.Key=project.ProjectKey;
+                        $scope.Description=project.Description;
+                        $scope.Lead=project.Lead.Username;
+                        $scope.Labels=label;
+                        $scope.Priorities=priorities;
                         $scope.inputName=project.Name;
                         $scope.inputDescription=project.Description;
                         $scope.inputLead=project.Lead.Username;
                     })
                     .then(function(){
-                        authentication.getIssuesByFilter(role.getToken(),'filter=Project.Name=="'+project.Name+'"')
+                        authentication.getIssuesByFilter(token,'filter=Project.Name=="'+project.Name+'"')
                             .then(function(issues){
                                 $scope.issues=issues
                             });
@@ -59,7 +60,7 @@ angular.module('issueTracker.projectPageController',[
             var labels = $scope.Labels.split(',');
             var priorities = $scope.Priorities.split(',');
 
-            authentication.getUsers(role.getToken())
+            authentication.getUsers(token)
                 .then(function(users){
                     var searchUser={};
 
@@ -80,9 +81,14 @@ angular.module('issueTracker.projectPageController',[
                         project.Lead.Id = searchUser.Id;
                         project.Lead.isAdmin = searchUser.isAdmin;
 
-                        authentication.updateProject(role.getToken(),project)
+                        authentication.updateProject(token,project)
                             .then(function(response){
-                                console.log(response);
+                                noty.show('Success Login!',"success");
+                                setTimeout(function(){ noty.closeAll() }, 1500);
+                                $route.reload();
+                            }, function (error) {
+                                noty.show('Login failed! '+ error.data.error_description,"error");
+                                setTimeout(function(){ noty.closeAll() }, 2000);
                             })
                     }
 
