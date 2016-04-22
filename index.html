@@ -12,7 +12,6 @@
     <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body ng-controller="HomeController" data-gr-c-s-loaded="true" cz-shortcut-listen="true">
-
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -23,8 +22,8 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-        <div ng-if="menuUser" class="navbar-collapse collapse" id="navbar-main">
-            <ul ng-show="menuUser" class="nav navbar-nav navbar-left">
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul ng-show="menuUser" class="nav navbar-nav">
                 <li>
                     <a href="#/">Dashboard</a>
                 </li>
@@ -35,17 +34,22 @@
                     <a ng-if="role" href="#/projects/add" >Create Project</a>
                 </li>
             </ul>
-            <ul ng-show="menuUser" class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#/">Hello, {{currentUser}}</a>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello, {{currentUser}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#/logout">Logout</a>
+                        </li>
+                        <li>
+                            <a href="#/profile/password">Change Password</a>
+                        </li>
+                    </ul>
+
                 </li>
-                <li>
-                    <a href="#/logout">Logout</a>
-                </li>
-                <li>
-                    <a href="#/profile/password">Change Password</a>
-                </li>
+
             </ul>
+
         </div>
     </div>
 </div>
