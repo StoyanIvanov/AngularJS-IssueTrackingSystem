@@ -12,8 +12,8 @@
 
         <div class="row">
             <p class="bs-component">
-                <div ng-if="role" href="" ng-click="formEnable()" class="btn btn-primary">Edit</div>
-                <a ng-if="role" href="#/projects/{{projectId}}/add-issue" class="btn btn-primary">Add Issue</a>
+                <div ng-if="edit" href="" ng-click="formEnable()" class="btn btn-primary">Edit</div>
+                <a ng-if="isAdmin" href="#/projects/{{projectId}}/add-issue" class="btn btn-primary">Add Issue</a>
             </p>
         </div>
 

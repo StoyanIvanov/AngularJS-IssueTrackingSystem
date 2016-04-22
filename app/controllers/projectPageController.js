@@ -17,17 +17,25 @@ angular.module('issueTracker.projectPageController',[
         }
 
         var project={};
+        var user;
         var token=role.getToken();
 
         role.getUser()
-            .then(function (user) {
-                $rootScope.role=user.isAdmin;
+            .then(function (myUser) {
+                user=myUser;
+                if(myUser.isAdmin){
+                    $scope.isAdmin=true;
+                    $scope.edit=true;
+                };
 
                 authentication.getProject(token,$routeParams.Id)
                     .then(function(editedProject){
                         var label='';
                         var priorities='';
                         project=editedProject;
+                        if(project.Lead.Username==user.Username){
+                            $scope.edit=true;
+                        }
 
                         project.Labels.forEach(function(element){
                             label+=element.Name+', ';

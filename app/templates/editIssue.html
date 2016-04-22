@@ -60,6 +60,7 @@
             <button type="button" class="btn btn-primary" ng-disabled="addComment.$invalid" ng-class="addComment.$invalid ? 'disabled-button' :''" ng-click="addIssueComment(addComment)" >Add new Comment</button>
         </form>
         <div class="list-group">
+            <label for="textArea">Comments:</label>
             <a href="" class="list-group-item" ng-repeat="comment in comments">
                 <h5 ng-bind="comment.CreatedOn | date:'dd/MMMM/yyyy HH:MM'" class="list-group-item-heading" style="float: left">{{comment.CreatedOn}}</h5>
                 <h5 class="list-group-item-heading" style="float: right">{{comment.Author.Username}}</h5>
