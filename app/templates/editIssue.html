@@ -2,7 +2,9 @@
 
 </div>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-3">
         <form  name="editIssue">
             <div class="form-group">
                 <label for="projectTitle">Title</label>
@@ -45,10 +47,10 @@
             <button ng-if="editable" type="button" class="btn btn-primary" ng-disabled="editIssue.$invalid" ng-class="editIssue.$invalid ? 'disabled-button' :''" ng-click="updateIssue(editedIssue, editedIssue.Assignee, editedIssue.priority)" >Update Issue</button>
         </form>
     </div>
-    <div class="col-md-5 navbar-right">
+    <div class="col-md-5">
         <form ng-if="createComment" name="addComment">
             <label for="textArea">You can share your issue comment:</label>
-            <textarea class="form-control" rows="3" id="textArea" ng-model="addComment.comment" data-gramm="true"
+            <textarea class="form-control" rows="3" id="textArea" ng-model="addComment.text" data-gramm="true"
                       spellcheck="false" style="z-index: auto; position: relative; line-height: 21px;
                       font-size: 15px; transition: none; background: transparent !important;" required>
             </textarea>
@@ -62,5 +64,7 @@
                 <h4 class="list-group-item-text">{{comment.Text}}</h4>
             </a>
         </div>
+    </div>
+    <div class="col-md-2">
     </div>
 </div>

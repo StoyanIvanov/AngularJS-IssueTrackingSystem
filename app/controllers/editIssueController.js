@@ -55,10 +55,12 @@ angular.module('issueTracker.editIssueController',[
                                 .then(function (project) {
                                     console.log(project);
                                     if(issueEdited.Assignee.Username==user.Username || project.Lead.Username==user.Username){
+                                        $scope.createComment=true
                                     }
                                     $scope.priorities=project.Priorities;
 
                                     if(user.Username==project.Lead.Username){
+                                        $scope.assign=true;
                                     }
                                 });
 
@@ -102,7 +104,7 @@ angular.module('issueTracker.editIssueController',[
             $scope.visible = ! $scope.visible;
 
             authentication.updateIssue(role.getToken(),issue)
-                .then(function (returnedIssue) {
+                .then(function () {
                     noty.show('The issue is update successful!',"success");
                     setTimeout(function(){ noty.closeAll() }, 1500);
                     $route.reload();
@@ -110,13 +112,14 @@ angular.module('issueTracker.editIssueController',[
                     noty.show('The update issue is failed! '+ error.data.error_description,"error");
                     setTimeout(function(){ noty.closeAll() }, 2000);
                 })
-        }
+        };
         
         $scope.addIssueComment= function (addComment) {
+            authentication.addComment(token,addComment,issueEdited.Id)
+                .then(function (comments) {
+                    $scope.comments=comments;
+                })
 
-            var coment={
-
-            }
         }
 
     }]);

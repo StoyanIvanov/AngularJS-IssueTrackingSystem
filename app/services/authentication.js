@@ -357,9 +357,29 @@ angular.module('issueTracker.authentication',[])
             return deferred.promise;
         }
 
+        function addComment(token,comment,issueId){
+            var deferred=$q.defer();
+            var data='Text=' + encodeURIComponent(comment.text);
+
+            var authorization='Bearer ' + token;
+            $http.defaults.headers.common.Authorization=authorization;
+            $http({
+                method: 'POST',
+                url: BASE_URL+'Issues/'+issueId+'/comments',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: data
+            }).then(function(response) {
+                deferred.resolve(response.data);
+            },function(error){
+                deferred.reject(error);
+            });
+
+            return deferred.promise;
+        }
+
         function logoutUser(){
-
-
         }
 
         return {
@@ -382,6 +402,7 @@ angular.module('issueTracker.authentication',[])
             getProjects:getProjects,
             changePassword:changePassword,
             addProject:addProject,
-            getIssueComments:getIssueComments
+            getIssueComments:getIssueComments,
+            addComment:addComment
         }
     }]);
