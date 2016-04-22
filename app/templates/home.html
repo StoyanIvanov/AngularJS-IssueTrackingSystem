@@ -37,7 +37,7 @@
                     <td>{{issue.Title}}</td>
                     <td>{{issue.Description | limitTo:50}}</td>
                     <td>{{issue.Project.Name}}</td>
-                    <td>{{issue.DueDate}}</td>
+                    <td ng-bind="issue.DueDate | date:'dd/MMMM/yyyy HH:MM'">{{issue.DueDate}}</td>
                 </tr>
             </tbody>
         </table>

@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label for="duoDate">Duo Date</label>
-                <input ng-disabled="disabled"  id="duoDate" ng-model="editedIssue.DueDate" class="form-control" name="editIssue.duoDate" type="datetime"  required/>
+                <input ng-disabled="disabled"  id="duoDate" ng-value="editedIssue.DueDate | date:'dd/MM/yyyy'" ng-model="editedIssue.DueDate" " class="form-control" type="datetime"  required/>
             </div>
             <div class="form-group">
                 <p>Athor: {{editedIssue.Author.Username}}</p>
@@ -51,8 +51,11 @@
         <form ng-if="createComment" name="addComment">
             <label for="textArea">You can share your issue comment:</label>
             <textarea class="form-control" rows="3" id="textArea" ng-model="addComment.text" data-gramm="true"
-                      spellcheck="false" style="z-index: auto; position: relative; line-height: 21px;
-                      font-size: 15px; transition: none; background: transparent !important;" required>
+                      data-txt_gramm_id="01bd2b3f-8215-93e7-e03a-a1f3b9ee2725"
+                      data-gramm_id="01bd2b3f-8215-93e7-e03a-a1f3b9ee2725" spellcheck="false" data-gramm_editor="true"
+                      style="z-index: auto; position: relative; line-height: 20px; font-size: 14px;
+                      transition: none; !important;">
+
             </textarea>
             <button type="button" class="btn btn-primary" ng-disabled="addComment.$invalid" ng-class="addComment.$invalid ? 'disabled-button' :''" ng-click="addIssueComment(addComment)" >Add new Comment</button>
         </form>
