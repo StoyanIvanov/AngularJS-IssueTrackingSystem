@@ -2,7 +2,7 @@
 
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-5">
         <form  name="editIssue">
             <div class="form-group">
                 <label for="projectTitle">Title</label>
@@ -45,23 +45,21 @@
             <button ng-if="editable" type="button" class="btn btn-primary" ng-disabled="editIssue.$invalid" ng-class="editIssue.$invalid ? 'disabled-button' :''" ng-click="updateIssue(editedIssue, editedIssue.Assignee, editedIssue.priority)" >Update Issue</button>
         </form>
     </div>
-    <div class="col-md-10">
-        <form  name="addComment">
+    <div class="col-md-5 navbar-right">
+        <form ng-if="createComment" name="addComment">
+            <label for="textArea">You can share your issue comment:</label>
             <textarea class="form-control" rows="3" id="textArea" ng-model="addComment.comment" data-gramm="true"
-                      data-txt_gramm_id="10fea99b-9750-bcc4-64f9-e878c9e59ed4"
-                      data-gramm_id="10fea99b-9750-bcc4-64f9-e878c9e59ed4"
-                      spellcheck="false" data-gramm_editor="true"
-                      style="z-index: auto; position: relative; line-height: 21px;
-                      font-size: 15px; transition: none; background: transparent !important;">
+                      spellcheck="false" style="z-index: auto; position: relative; line-height: 21px;
+                      font-size: 15px; transition: none; background: transparent !important;" required>
             </textarea>
-
-            <button ng-if="editable" type="button" class="btn btn-primary" ng-disabled="addComment.$invalid" ng-class="addComment.$invalid ? 'disabled-button' :''" ng-click="addIssueComment(addComment)" >Add new Comment</button>
+            <button type="button" class="btn btn-primary" ng-disabled="addComment.$invalid" ng-class="addComment.$invalid ? 'disabled-button' :''" ng-click="addIssueComment(addComment)" >Add new Comment</button>
         </form>
-
         <div class="list-group">
-            <a href="#" class="list-group-item" ng-repeat="coment in comments">
-                <h4 class="list-group-item-heading">{{coment.CreatedOn}} / {{coment.Author.Username}}</h4>
-                <p class="list-group-item-text">{{coment.Text}}</p>
+            <a href="" class="list-group-item" ng-repeat="comment in comments">
+                <h5 ng-bind="comment.CreatedOn | date:'dd/MMMM/yyyy HH:MM'" class="list-group-item-heading" style="float: left">{{comment.CreatedOn}}</h5>
+                <h5 class="list-group-item-heading" style="float: right">{{comment.Author.Username}}</h5>
+                <br />
+                <h4 class="list-group-item-text">{{comment.Text}}</h4>
             </a>
         </div>
     </div>

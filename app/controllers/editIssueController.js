@@ -32,6 +32,7 @@ angular.module('issueTracker.editIssueController',[
 
                     authentication.getIssue(token,issueId)
                         .then(function (issue) {
+                            console.log(issue);
                             var labels='';
                             issueEdited=issue;
                             $scope.editedIssue=issue;
@@ -52,10 +53,12 @@ angular.module('issueTracker.editIssueController',[
 
                             authentication.getProject(token,issue.Project.Id)
                                 .then(function (project) {
+                                    console.log(project);
+                                    if(issueEdited.Assignee.Username==user.Username || project.Lead.Username==user.Username){
+                                    }
                                     $scope.priorities=project.Priorities;
 
                                     if(user.Username==project.Lead.Username){
-                                        $scope.assign=true;
                                     }
                                 });
 
@@ -66,11 +69,8 @@ angular.module('issueTracker.editIssueController',[
 
                             authentication.getIssueComments(token,issueEdited)
                                 .then(function (comments) {
-                                    console.log(comments);
                                     $scope.comments=comments;
                                 })
-
-
                         })
                 });
         }
@@ -110,6 +110,13 @@ angular.module('issueTracker.editIssueController',[
                     noty.show('The update issue is failed! '+ error.data.error_description,"error");
                     setTimeout(function(){ noty.closeAll() }, 2000);
                 })
+        }
+        
+        $scope.addIssueComment= function (addComment) {
+
+            var coment={
+
+            }
         }
 
     }]);
