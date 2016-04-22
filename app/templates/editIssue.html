@@ -46,5 +46,23 @@
         </form>
     </div>
     <div class="col-md-10">
+        <form  name="addComment">
+            <textarea class="form-control" rows="3" id="textArea" ng-model="addComment.comment" data-gramm="true"
+                      data-txt_gramm_id="10fea99b-9750-bcc4-64f9-e878c9e59ed4"
+                      data-gramm_id="10fea99b-9750-bcc4-64f9-e878c9e59ed4"
+                      spellcheck="false" data-gramm_editor="true"
+                      style="z-index: auto; position: relative; line-height: 21px;
+                      font-size: 15px; transition: none; background: transparent !important;">
+            </textarea>
+
+            <button ng-if="editable" type="button" class="btn btn-primary" ng-disabled="addComment.$invalid" ng-class="addComment.$invalid ? 'disabled-button' :''" ng-click="addIssueComment(addComment)" >Add new Comment</button>
+        </form>
+
+        <div class="list-group">
+            <a href="#" class="list-group-item" ng-repeat="coment in comments">
+                <h4 class="list-group-item-heading">{{coment.CreatedOn}} / {{coment.Author.Username}}</h4>
+                <p class="list-group-item-text">{{coment.Text}}</p>
+            </a>
+        </div>
     </div>
 </div>

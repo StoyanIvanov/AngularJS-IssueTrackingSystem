@@ -19,6 +19,7 @@ angular.module('issueTracker.editIssueController',[
         var user=undefined;
         var issueEdited=undefined;
         var statuses=[];
+        var token=role.getToken();
         $scope.disabled=true;
         $scope.visible=true;
 
@@ -29,7 +30,7 @@ angular.module('issueTracker.editIssueController',[
                     user=editerUser;
                     $rootScope.role=user.isAdmin;
 
-                    authentication.getIssue(role.getToken(),issueId)
+                    authentication.getIssue(token,issueId)
                         .then(function (issue) {
                             var labels='';
                             issueEdited=issue;
@@ -49,7 +50,7 @@ angular.module('issueTracker.editIssueController',[
                                 $scope.editButton=true;
                             }
 
-                            authentication.getProject(role.getToken(),issue.Project.Id)
+                            authentication.getProject(token,issue.Project.Id)
                                 .then(function (project) {
                                     $scope.priorities=project.Priorities;
 
@@ -58,10 +59,18 @@ angular.module('issueTracker.editIssueController',[
                                     }
                                 });
 
-                            authentication.getUsers(role.getToken())
+                            authentication.getUsers(token)
                                 .then(function (users) {
                                     $scope.users=users;
+                                });
+
+                            authentication.getIssueComments(token,issueEdited)
+                                .then(function (comments) {
+                                    console.log(comments);
+                                    $scope.comments=comments;
                                 })
+
+
                         })
                 });
         }

@@ -324,6 +324,8 @@ angular.module('issueTracker.authentication',[])
                 '&NewPassword=' + encodeURIComponent(data.newPassword) +
                 '&ConfirmPassword=' + encodeURIComponent(data.confirmPassword);
 
+            var authorization='Bearer ' + token;
+            $http.defaults.headers.common.Authorization=authorization;
             $http({
                 method: 'POST',
                 url: BASE_URL+'api/Account/ChangePassword',
@@ -340,7 +342,23 @@ angular.module('issueTracker.authentication',[])
             return deferred.promise;
         }
 
+        function getIssueComments(token,issue){
+            var deferred=$q.defer();
+            var authorization='Bearer ' + token;
+
+            $http.defaults.headers.common.Authorization=authorization;
+            $http.get(BASE_URL+'issues/'+issue.Id+'/comments',$http.header)
+                .then(function(projects){
+                    deferred.resolve(projects.data);
+                },function(error){
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        }
+
         function logoutUser(){
+
 
         }
 
@@ -363,6 +381,7 @@ angular.module('issueTracker.authentication',[])
             updateIssue:updateIssue,
             getProjects:getProjects,
             changePassword:changePassword,
-            addProject:addProject
+            addProject:addProject,
+            getIssueComments:getIssueComments
         }
     }]);
