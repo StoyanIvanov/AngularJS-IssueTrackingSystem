@@ -55,4 +55,8 @@ body{
   background-color:#ffffff ;
 }
 
+.dropdown-menu{
+  width: 300px;
+  padding: 5px;
+}
 

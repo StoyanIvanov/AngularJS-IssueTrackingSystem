@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('issueTracker.projectPageController',[
-        'issueTracker.authentication'
+        'issueTracker.authentication',
+        'issueTracker.filters',
     ])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/projects/:Id',{
@@ -10,7 +11,17 @@ angular.module('issueTracker.projectPageController',[
         })
 
     }])
-    .controller('ProjectPageController',['$scope','$location','authentication','role','$routeParams','$rootScope','noty','$route',function($scope,$location,authentication,role,$routeParams,$rootScope,noty,$route){
+    .controller('ProjectPageController',[
+        '$scope',
+        '$location',
+        'authentication',
+        'role',
+        '$routeParams',
+        '$rootScope',
+        'noty',
+        '$route',
+        'filters',
+        function($scope,$location,authentication,role,$routeParams,$rootScope,noty,$route,filters){
 
         if(!role.isAuthenticated()){
             $location.path('/');
@@ -110,6 +121,12 @@ angular.module('issueTracker.projectPageController',[
 
         $scope.editIssue=function(issue){
             $location.path('/issues/'+issue.Id);
+        };
+
+        $scope.findIssues=function(filterData){
+            var filter = filters.createFilter(filterData);
+            console.log(filter);
+
         }
 
     }]);

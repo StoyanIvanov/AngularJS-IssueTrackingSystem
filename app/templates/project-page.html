@@ -16,7 +16,6 @@
                 <a ng-if="isAdmin" href="#/projects/{{projectId}}/add-issue" class="btn btn-primary">Add Issue</a>
             </p>
         </div>
-
         <form ng-if="form" name="editProject">
             <div class="form-group">
                 <label for="projectName">Title</label>
@@ -35,7 +34,51 @@
         </form>
     </div>
     <div class="col-md-9">
-        <h2>Project Issues</h2>
+        <h2 class="nav navbar-nav navbar-left">Project Issues</h2>
+        <ul class="nav navbar-nav navbar-right">
+            <!-- ngIf: menuUser --><li ng-if="menuUser" class="dropdown ng-scope">
+            <a href="" class="dropdown-toggle ng-binding" data-toggle="dropdown" role="button" aria-expanded="false">Find more issues by Filter<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <form name="filters" class="form-group">
+                        <div class="form-group">
+                            <label for="titleFilter">Title</label>
+                            <input id="titleFilter" ng-model="filters.title" class="form-control " type="text"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectIdFilter">Project Id</label>
+                            <input id="projectIdFilter" ng-model="filters.projectId" class="form-control " type="text"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="dayFilter">Duo Date - Day expression</label>
+                            <input id="dayFilter" ng-model="filters.day" class="form-control" type="text" placeholder="Example <2 >2 >=2 <=2 ==2"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="monthFilter">Duo Date - Month expression</label>
+                            <input id="monthFilter" ng-model="filters.month" class="form-control" type="text" placeholder="Example <5 >5 >=5 <=5 ==5"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectNameFilter">Project Name</label>
+                            <input id="projectNameFilter" ng-model="filters.projectName" class="form-control" type="text"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="pleadUsernameFilter">Lead Username</label>
+                            <input id="pleadUsernameFilter" ng-model="filters.leadUsername" class="form-control" type="text"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="searchingTypeFilter">Select type of searching</label>
+                            <select ng-model="filters.searchingType" id="searchingTypeFilter" class="form-control" required>
+                                <option value="">Select type of searching</option>
+                                <option value="aprox">approximately match</option>
+                                <option value="exact">exact match</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" ng-disabled="filters.$invalid" ng-click="findIssues(filters)" >Find Issues</button>
+                    </form>
+                </li>
+            </ul>
+        </li><!-- end ngIf: menuUser -->
+        </ul>
         <table class="table table-striped table-hover ">
             <thead>
             <tr>
@@ -54,5 +97,12 @@
             </tr>
             </tbody>
         </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-9">
+
     </div>
 </div>
