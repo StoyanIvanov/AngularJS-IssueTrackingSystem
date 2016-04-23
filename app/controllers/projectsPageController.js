@@ -10,13 +10,12 @@ angular.module('issueTracker.projectsPageController',[
         })
 
     }])
-    .controller('ProjectsPageController',['$scope','$location','authentication','role','$routeParams','$rootScope',function($scope,$location,authentication,role,$routeParams,$rootScope){
+    .controller('ProjectsPageController',['$scope','$location','authentication','role','$routeParams','$rootScope','paging',function($scope,$location,authentication,role,$routeParams,$rootScope,paging){
 
         if(!role.isAuthenticated()){
             $location.path('/');
         }
 
-        var pages=[];
         var token=role.getToken();
         $scope.setPage=1;
 
@@ -26,15 +25,7 @@ angular.module('issueTracker.projectsPageController',[
 
                 authentication.getProjects(token)
                     .then(function(projects){
-
-                        for(var i = 1; i <= projects.TotalPages; i++){
-                            var page={
-                                number:i
-                            };
-                            pages.push(page);
-                        }
-
-                        $scope.pages=pages;
+                        $scope.pages=paging.getPages(projects);
                         $scope.projects=projects.Projects;
                     })
             });

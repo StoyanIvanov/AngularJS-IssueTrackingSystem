@@ -5,6 +5,7 @@ angular.module('issueTracker', [
     'ngRoute',
     'ngCookies',
     'notyModule',
+    'issueTracker.paging',
     'issueTracker.mainController',
     'issueTracker.homeController',
     'issueTracker.loginController',

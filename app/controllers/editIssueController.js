@@ -32,7 +32,6 @@ angular.module('issueTracker.editIssueController',[
 
                     authentication.getIssue(token,issueId)
                         .then(function (issue) {
-                            console.log(issue);
                             var labels='';
                             issueEdited=issue;
                             $scope.editedIssue=issue;

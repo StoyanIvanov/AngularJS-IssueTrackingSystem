@@ -59,4 +59,10 @@ body{
   width: 300px;
   padding: 5px;
 }
+#filterButton{
+  margin-right: 15px;
+}
 
+.dropdown-menu{
+  margin-right: 15px;
+}

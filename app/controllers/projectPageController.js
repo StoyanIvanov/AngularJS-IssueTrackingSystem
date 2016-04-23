@@ -2,7 +2,7 @@
 
 angular.module('issueTracker.projectPageController',[
         'issueTracker.authentication',
-        'issueTracker.filters',
+        'issueTracker.filter'
     ])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/projects/:Id',{
@@ -20,16 +20,19 @@ angular.module('issueTracker.projectPageController',[
         '$rootScope',
         'noty',
         '$route',
-        'filters',
-        function($scope,$location,authentication,role,$routeParams,$rootScope,noty,$route,filters){
+        'createFilters',
+        'paging',
+        function($scope,$location,authentication,role,$routeParams,$rootScope,noty,$route,createFilters,paging){
 
         if(!role.isAuthenticated()){
             $location.path('/');
         }
 
         var project={};
+        var filter;
         var user;
         var token=role.getToken();
+        $scope.setIssuesPage=1;
 
         role.getUser()
             .then(function (myUser) {
@@ -37,7 +40,7 @@ angular.module('issueTracker.projectPageController',[
                 if(myUser.isAdmin){
                     $scope.isAdmin=true;
                     $scope.edit=true;
-                };
+                }
 
                 authentication.getProject(token,$routeParams.Id)
                     .then(function(editedProject){
@@ -124,9 +127,29 @@ angular.module('issueTracker.projectPageController',[
         };
 
         $scope.findIssues=function(filterData){
-            var filter = filters.createFilter(filterData);
-            console.log(filter);
+            filter = createFilters.createFilter(filterData);
+            authentication.getIssuesByFilter(token,filter,5)
+                .then(function (issues) {
+                    if(issues.TotalCount==0){
+                        noty.show('The issues not found! ',"information");
+                        setTimeout(function(){ noty.closeAll() }, 3000);
+                    }
+                    $scope.issuesPages=paging.getPages(issues);
+                    $scope.filteredIssues=issues.Issues;
+                }, function (error) {
+                    noty.show('Error! '+ error.data.error_description,"error");
+                    setTimeout(function(){ noty.closeAll() }, 2000);
+                })
+        };
 
+        $scope.toIssuesPage=function(page){
+            if(page.number!=$scope.setIssuesPage){
+                authentication.getIssuesByFilter(token,filter,5,page.number)
+                    .then(function (issues) {
+                        $scope.filteredIssues=issues.Issues;
+                        $scope.setIssuesPage=page.number;
+                    })
+            }
         }
 
     }]);
