@@ -19,23 +19,27 @@ angular.module('issueTracker.loginController',[
         'noty',
         function($scope,$location,authentication,role,$rootScope,noty){
 
-        if(!role.isAuthenticated()){
-            $scope.login=function(user){
-                authentication.loginUser(user)
-                    .then(function(user){
-                        role.rememberUser(user);
-                        noty.show('Success Login!',"success");
-                        setTimeout(function(){ noty.closeAll() }, 1500);
+            if(role.isAuthenticated()){
+                $location.path('/');
+            }
 
-                        role.getUser()
-                            .then(function(){
-                                $location.path('/');
-                            });
+            if(!role.isAuthenticated()){
+                $scope.login=function(user){
+                    authentication.loginUser(user)
+                        .then(function(user){
+                            role.rememberUser(user);
+                            noty.show('Success Login!',"success");
+                            setTimeout(function(){ noty.closeAll() }, 1500);
 
-                    },function(error){
-                        noty.show('Login failed! '+ error.data.error_description,"error");
-                        setTimeout(function(){ noty.closeAll() }, 2000);
-                    });
-            };
-        }
+                            role.getUser()
+                                .then(function(){
+                                    $location.path('/');
+                                });
+
+                        },function(error){
+                            noty.show('Login failed! '+ error.data.error_description,"error");
+                            setTimeout(function(){ noty.closeAll() }, 2000);
+                        });
+                };
+            }
     }]);

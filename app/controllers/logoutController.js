@@ -15,6 +15,8 @@ angular.module('issueTracker.logout',[
         '$location',
         '$cookies',
         function(role,$location){
+
         role.logout();
         $location.path('/');
+            
     }]);
