@@ -10,7 +10,11 @@ angular.module('issueTracker.logout',[
         })
 
     }])
-    .controller('LogoutController',['role','$location','$cookies',function(role,$location){
+    .controller('LogoutController',[
+        'role',
+        '$location',
+        '$cookies',
+        function(role,$location){
         role.logout();
         $location.path('/');
     }]);

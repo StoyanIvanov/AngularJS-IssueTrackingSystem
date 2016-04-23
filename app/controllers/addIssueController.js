@@ -10,7 +10,15 @@ angular.module('issueTracker.addIssueController',[
         })
 
     }])
-    .controller('AddIssueController',['$scope','$location','authentication','role','$routeParams','$rootScope','noty',function($scope,$location,authentication,role,$routeParams,$rootScope,noty){
+    .controller('AddIssueController',[
+        '$scope',
+        '$location',
+        'authentication',
+        'role',
+        '$routeParams',
+        '$rootScope',
+        'noty',
+        function($scope,$location,authentication,role,$routeParams,$rootScope,noty){
 
         if(!role.isAuthenticated()){
             $location.path('/');

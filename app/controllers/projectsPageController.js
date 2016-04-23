@@ -10,7 +10,15 @@ angular.module('issueTracker.projectsPageController',[
         })
 
     }])
-    .controller('ProjectsPageController',['$scope','$location','authentication','role','$routeParams','$rootScope','paging',function($scope,$location,authentication,role,$routeParams,$rootScope,paging){
+    .controller('ProjectsPageController',[
+        '$scope',
+        '$location',
+        'authentication',
+        'role',
+        '$routeParams',
+        '$rootScope',
+        'paging',
+        function($scope,$location,authentication,role,$routeParams,$rootScope,paging){
 
         if(!role.isAuthenticated()){
             $location.path('/');

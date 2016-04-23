@@ -1,7 +1,11 @@
 'use strict';
 
 angular.module('issueTracker.authentication',[])
-    .factory('authentication',['$http','$q','BASE_URL','$cookies', function($http,$q,BASE_URL,$cookies){
+    .factory('authentication',[
+        '$http',
+        '$q',
+        'BASE_URL',
+        function($http,$q,BASE_URL){
 
         function registerUser(user){
             var deferred=$q.defer();

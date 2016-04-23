@@ -9,14 +9,20 @@ angular.module('issueTracker.homeController',[
             controller:'HomeController'
         })
     }])
-.controller('HomeController',['$scope','$location','authentication','role','$rootScope','$cookies','paging',function($scope,$location,authentication,role,$rootScope,$cookies,paging){
+.controller('HomeController',[
+    '$scope',
+    '$location',
+    'authentication',
+    'role',
+    '$rootScope',
+    '$cookies',
+    'paging',
+    function($scope,$location,authentication,role,$rootScope,$cookies,paging){
 
     if(!role.isAuthenticated()){
         $location.path('/login');
     }
 
-    var projectPages=[];
-    var issuesPages=[];
     var token=role.getToken();
     var filter;
     $scope.setProjectPage=1;

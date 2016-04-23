@@ -114,7 +114,6 @@ angular.module('issueTracker.projectPageController',[
                                 setTimeout(function(){ noty.closeAll() }, 2000);
                             })
                     }
-
                 });
         };
 

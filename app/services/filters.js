@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('issueTracker.filter',[])
-    .factory('createFilters',['$http','$q','BASE_URL','$cookies', function($http,$q,BASE_URL,$cookies){
+    .factory('createFilters',[
+        function(){
 
         function createFilter(filter){
             if(filter.searchingType=="aprox"){

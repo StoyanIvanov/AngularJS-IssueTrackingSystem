@@ -10,7 +10,13 @@ angular.module('issueTracker.changePasswordController',[
         })
 
     }])
-    .controller('ChangePasswordController',['$scope','$location','authentication','role','noty',function($scope,$location,authentication,role,noty){
+    .controller('ChangePasswordController',[
+        '$scope',
+        '$location',
+        'authentication',
+        'role',
+        'noty',
+        function($scope,$location,authentication,role,noty){
 
         if(!role.isAuthenticated()){
             $location.path('/login');

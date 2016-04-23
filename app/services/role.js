@@ -1,7 +1,13 @@
 'use strict';
 
 angular.module('issueTracker.users.role',[])
-    .factory('role',['$http','$q','$cookies','authentication','$rootScope','$location',function($http,$q,$cookies,authentication,$rootScope,$location){
+    .factory('role',[
+        '$http',
+        '$q',
+        '$cookies',
+        'authentication',
+        '$rootScope',
+        function($http,$q,$cookies,authentication,$rootScope){
 
         var userName='';
         var userAuthenticated=false;
@@ -19,7 +25,6 @@ angular.module('issueTracker.users.role',[])
                         user=userInfo;
                     });
             }
-
         }
 
         function isAuthenticated(){
@@ -29,7 +34,6 @@ angular.module('issueTracker.users.role',[])
             }
 
             return false;
-
         }
 
         function getUser(){

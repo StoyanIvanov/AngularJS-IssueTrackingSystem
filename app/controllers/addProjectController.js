@@ -10,7 +10,14 @@ angular.module('issueTracker.addProjectController',[
         })
 
     }])
-    .controller('AddProjectController',['$scope','$location','authentication','role','$rootScope','noty',function($scope,$location,authentication,role,$rootScope,noty){
+    .controller('AddProjectController',[
+        '$scope',
+        '$location',
+        'authentication',
+        'role',
+        '$rootScope',
+        'noty',
+        function($scope,$location,authentication,role,$rootScope,noty){
 
         if(role.isAuthenticated()){
             authentication.getUsers(role.getToken())

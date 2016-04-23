@@ -10,7 +10,14 @@ angular.module('issueTracker.loginController',[
         })
 
     }])
-    .controller('LoginController',['$scope','$location','authentication','role','$rootScope','noty',function($scope,$location,authentication,role,$rootScope,noty){
+    .controller('LoginController',[
+        '$scope',
+        '$location',
+        'authentication',
+        'role',
+        '$rootScope',
+        'noty',
+        function($scope,$location,authentication,role,$rootScope,noty){
 
         if(!role.isAuthenticated()){
             $scope.login=function(user){
