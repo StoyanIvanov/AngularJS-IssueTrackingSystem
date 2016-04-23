@@ -66,3 +66,6 @@ body{
 .dropdown-menu{
   margin-right: 15px;
 }
+#labels{
+  height: 200px;
+}
