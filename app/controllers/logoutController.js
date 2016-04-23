@@ -18,5 +18,5 @@ angular.module('issueTracker.logout',[
 
         role.logout();
         $location.path('/');
-            
+
     }]);
