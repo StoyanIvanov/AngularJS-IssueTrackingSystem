@@ -13,7 +13,7 @@
         <div class="row">
             <p class="bs-component">
                 <div ng-if="edit" href="" ng-click="formEnable()" class="btn btn-primary">Edit</div>
-                <a ng-if="isAdmin" href="#/projects/{{projectId}}/add-issue" class="btn btn-primary">Add Issue</a>
+                <a ng-if="addIssue" href="#/projects/{{projectId}}/add-issue" class="btn btn-primary">Add Issue</a>
             </p>
         </div>
         <form ng-if="form" name="editProject">

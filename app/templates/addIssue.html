@@ -15,10 +15,7 @@
             </div>
             <div class="form-group">
                 <label for="selectedProject">Project</label>
-                <select class="form-control" id="selectedProject" ng-model="addIssue.project" ng-change="changePriority(addIssue.project)" required>
-                    <option value="" disabled selected>Select Project</option>
-                    <option ng-repeat="project in issueProject">{{project.Name}}</option>
-                </select>
+                <input id="selectedProject" disabled ng-model="addIssue.project" class="form-control" type="text" ng-value="Project"  required/>
             </div>
             <div class="form-group">
                 <label for="assign">Assign to</label>
@@ -31,7 +28,7 @@
                 <label for="priority">Priority</label>
                 <select class="form-control" id="priority" ng-model="addIssue.priority">
                     <option value="" disabled selected>Select Priority</option>
-                    <option ng-repeat="priority in priorities" value="{{priority}}">{{priority.Name}}</option>
+                    <option ng-repeat="priority in Project.Priorities" value="{{priority}}">{{priority.Name}}</option>
                 </select>
             </div>
             <div class="form-group">

@@ -16,7 +16,7 @@ angular.module('issueTracker.addIssueController',[
             $location.path('/');
         }
 
-        var projectId;
+        var projectId=$routeParams.Id;;
         var allProject={};
         var token=role.getToken();
         $scope.projectId=$routeParams.Id;
@@ -26,10 +26,12 @@ angular.module('issueTracker.addIssueController',[
                 $rootScope.role=user.isAdmin;
             });
 
-        authentication.getAllProjects(token)
-            .then(function(projects){
-                $scope.issueProject=projects;
-                allProject=projects;
+        authentication.getProject(token,projectId)
+            .then(function(project){
+                console.log(project)
+                $scope.Project=project;
+                $scope.addIssue.project=project.Name;
+                allProject=project;
             });
 
         authentication.getUsers(token)
@@ -51,6 +53,7 @@ angular.module('issueTracker.addIssueController',[
         };
 
         $scope.update=function(issue){
+            console.log(issue);
 
             var user=JSON.parse(issue.user);
             var priority=JSON.parse(issue.priority);
@@ -66,12 +69,12 @@ angular.module('issueTracker.addIssueController',[
                 PriorityId : priority.Id,
                 Labels:labels
             };
-            console.log(newIssue);
 
             authentication.addIssue(token, newIssue)
                 .then(function (response) {
                     noty.show('The issue is added successful!',"Information");
                     setTimeout(function(){ noty.closeAll() }, 1500);
+                    $location.path('/projects/'+projectId);
                 },function(error){
                     noty.show('Login failed! '+ error.data.error_description,"error");
                     setTimeout(function(){ noty.closeAll() }, 2000);

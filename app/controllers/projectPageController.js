@@ -38,7 +38,7 @@ angular.module('issueTracker.projectPageController',[
             .then(function (myUser) {
                 user=myUser;
                 if(myUser.isAdmin){
-                    $scope.isAdmin=true;
+                    $scope.addIssue=true;
                     $scope.edit=true;
                 }
 
@@ -48,6 +48,7 @@ angular.module('issueTracker.projectPageController',[
                         var priorities='';
                         project=editedProject;
                         if(project.Lead.Username==user.Username){
+                            $scope.addIssue=true;
                             $scope.edit=true;
                         }
 
