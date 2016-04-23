@@ -20,6 +20,7 @@ angular.module('issueTracker.editIssueController',[
         'noty',
         '$route'
         ,function($scope,$location,authentication,role,$routeParams,$rootScope,noty,$route){
+
         if(!role.isAuthenticated()){
             $location.path('/');
         }
