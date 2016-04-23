@@ -106,11 +106,11 @@ angular.module('issueTracker.projectPageController',[
 
                         authentication.updateProject(token,project)
                             .then(function(response){
-                                noty.show('Success Login!',"success");
+                                noty.show('Update is successfully!',"success");
                                 setTimeout(function(){ noty.closeAll() }, 1500);
                                 $route.reload();
                             }, function (error) {
-                                noty.show('Login failed! '+ error.data.error_description,"error");
+                                noty.show('LUpdate faild! '+ error.data.error_description,"error");
                                 setTimeout(function(){ noty.closeAll() }, 2000);
                             })
                     }
