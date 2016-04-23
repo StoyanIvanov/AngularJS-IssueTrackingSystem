@@ -199,8 +199,15 @@ angular.module('issueTracker.authentication',[])
         function updateProject(token, project){
             var deferred=$q.defer();
             var data='Name=' + encodeURIComponent(project.Name) +
-                '&Description=' + encodeURIComponent(project.Description) +
-                '&LeadId='+ encodeURIComponent(project.Lead.Id);
+                '&Description=' + encodeURIComponent(project.Description);
+            for(var i=0;i<project.Labels.length;i++){
+                data+='&labels[' + i + '].Name='+ project.Labels[i].Name;
+            }
+            for(var i=0;i<project.Priorities.length;i++){
+                data+='&priorities[' + i + '].Name='+ project.Priorities[i].Name;
+            }
+
+            data+='&LeadId='+ encodeURIComponent(project.Lead.Id);
 
             var authorization='Bearer ' + token;
             $http.defaults.headers.common.Authorization=authorization;

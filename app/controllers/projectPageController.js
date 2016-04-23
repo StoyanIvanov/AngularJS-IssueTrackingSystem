@@ -47,6 +47,7 @@ angular.module('issueTracker.projectPageController',[
                         var label='';
                         var priorities='';
                         project=editedProject;
+                        console.log(editedProject);
                         if(project.Lead.Username==user.Username){
                             $scope.addIssue=true;
                             $scope.edit=true;
@@ -80,9 +81,6 @@ angular.module('issueTracker.projectPageController',[
 
         $scope.update=function(inputName, inputDescription, inputLead){
             //TODO Validation
-            var labels = $scope.Labels.split(',');
-            var priorities = $scope.Priorities.split(',');
-
             authentication.getUsers(token)
                 .then(function(users){
                     var searchUser={};
@@ -98,14 +96,13 @@ angular.module('issueTracker.projectPageController',[
 
                         project.Name = inputName;
                         project.Description = inputDescription;
-                        project.Labels = labels;
-                        project.Priorities = priorities;
                         project.Lead.Username = searchUser.Username;
                         project.Lead.Id = searchUser.Id;
                         project.Lead.isAdmin = searchUser.isAdmin;
+                        console.log(project);
 
                         authentication.updateProject(token,project)
-                            .then(function(response){
+                            .then(function(){
                                 noty.show('Update is successfully!',"success");
                                 setTimeout(function(){ noty.closeAll() }, 1500);
                                 $route.reload();
