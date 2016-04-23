@@ -23,12 +23,13 @@ angular.module('issueTracker.homeController',[
         $location.path('/login');
     }
 
-    var token=role.getToken();
-    var filter;
-    $scope.setProjectPage=1;
-    $scope.setIssuesPage=1;
-
     if(role.isAuthenticated){
+
+        var token=role.getToken();
+        var filter;
+        $scope.setProjectPage=1;
+        $scope.setIssuesPage=1;
+
         role.getUser()
             .then(function (user) {
                 $scope.lead=user.Username;
