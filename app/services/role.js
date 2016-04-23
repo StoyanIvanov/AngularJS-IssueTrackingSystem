@@ -7,13 +7,15 @@ angular.module('issueTracker.users.role',[])
         '$cookies',
         'authentication',
         '$rootScope',
-        function($http,$q,$cookies,authentication,$rootScope){
+        '$location',
+        function($http,$q,$cookies,authentication,$rootScope,$location){
 
         var userName='';
         var userAuthenticated=false;
         var user=undefined;
 
         function rememberUser(loginUser) {
+            console.log(loginUser)
             $cookies.put('userName', loginUser.userName);
             $cookies.put('userID', loginUser.Id);
             $cookies.put('isAdmin', loginUser.isAdmin);
@@ -23,6 +25,7 @@ angular.module('issueTracker.users.role',[])
                     .then(function (userInfo) {
                         userAuthenticated = true;
                         user=userInfo;
+                        $location.path('/');
                     });
             }
         }

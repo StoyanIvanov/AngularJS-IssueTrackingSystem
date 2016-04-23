@@ -10,9 +10,19 @@ angular.module('issueTracker.authentication',[])
         function registerUser(user){
             var deferred=$q.defer();
 
-            $http.post(BASE_URL+'api/Account/Register',user)
-                .then(function(success){
-                    deferred.resolve(success.data);
+            var data='Email=' + encodeURIComponent(user.username) +
+                '&Password=' + encodeURIComponent(user.password) +
+                '&ConfirmPassword='+ encodeURIComponent(user.confirmPassword);
+
+            $http({
+                method: 'POST',
+                url: BASE_URL+'api/Account/Register',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: data
+            }).then(function(success){
+                    deferred.resolve(success);
                 },function(error){
                     deferred.reject(error);
                 });
