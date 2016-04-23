@@ -22,7 +22,6 @@ angular.module('issueTracker.registerController',[
         if(!role.isAuthenticated()){
 
             $scope.register=function(user){
-                console.log(user);
                 var newUser=user;
                 authentication.registerUser(user)
                     .then(function (user) {

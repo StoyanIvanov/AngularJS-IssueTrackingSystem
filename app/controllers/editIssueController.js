@@ -62,7 +62,6 @@ angular.module('issueTracker.editIssueController',[
 
                             authentication.getProject(token,issue.Project.Id)
                                 .then(function (project) {
-                                    console.log(project);
                                     if(issueEdited.Assignee.Username==user.Username || project.Lead.Username==user.Username){
                                         $scope.createComment=true
                                     }

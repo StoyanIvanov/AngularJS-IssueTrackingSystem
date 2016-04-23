@@ -47,7 +47,6 @@ angular.module('issueTracker.projectPageController',[
                         var label='';
                         var priorities='';
                         project=editedProject;
-                        console.log(editedProject);
                         if(project.Lead.Username==user.Username){
                             $scope.addIssue=true;
                             $scope.edit=true;
@@ -99,7 +98,6 @@ angular.module('issueTracker.projectPageController',[
                         project.Lead.Username = searchUser.Username;
                         project.Lead.Id = searchUser.Id;
                         project.Lead.isAdmin = searchUser.isAdmin;
-                        console.log(project);
 
                         authentication.updateProject(token,project)
                             .then(function(){

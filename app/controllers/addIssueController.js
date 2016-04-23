@@ -36,7 +36,6 @@ angular.module('issueTracker.addIssueController',[
 
         authentication.getProject(token,projectId)
             .then(function(project){
-                console.log(project)
                 $scope.Project=project;
                 $scope.addIssue.project=project.Name;
                 allProject=project;

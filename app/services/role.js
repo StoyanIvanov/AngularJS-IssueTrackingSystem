@@ -15,7 +15,6 @@ angular.module('issueTracker.users.role',[])
         var user=undefined;
 
         function rememberUser(loginUser) {
-            console.log(loginUser)
             $cookies.put('userName', loginUser.userName);
             $cookies.put('userID', loginUser.Id);
             $cookies.put('isAdmin', loginUser.isAdmin);
